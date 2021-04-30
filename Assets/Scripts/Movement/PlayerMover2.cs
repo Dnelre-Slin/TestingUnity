@@ -51,7 +51,7 @@ public class PlayerMover2 : MonoBehaviour
         this.controllable.AddActionMap("Player");
         this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
         this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
-        // this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
 
         // this.transform.SetParent(this.spaceship.transform);
         // ParentConstraint parentConstraint = this.gameObject.AddComponent<ParentConstraint>();
@@ -138,6 +138,7 @@ public class PlayerMover2 : MonoBehaviour
 
         if (this.jumpSpeed > 0f)
         {
+            this.transform.position += new Vector3(0f, 0.3f, 0f);
             this.velocity.y = this.jumpSpeed;
             this.jumpSpeed = 0f;
             // skip = false;
@@ -151,20 +152,20 @@ public class PlayerMover2 : MonoBehaviour
         //     this.velocity.y += this.gravity * Time.deltaTime;
         // }
 
-        // else if (this.controller.isGrounded)
-        // {
-        //     // velocity.y = -this.groundedDownSpeed;
-        //     velocity.y = 0;
-        // }
-        // if (applyGravity)
-        // {
-        //     // float y = gravity * Time.deltaTime;
-        //     // Debug.Log("Y : " + y);
-        //     // velocity.y += y;
-        //     // this.velocity.y = this.controller.velocity.y;
-        //     this.velocity.y += this.gravity * Time.deltaTime;
-        //     // Debug.Log("Player2 : " + this.controller.velocity);
-        // }
+        else if (this.controller.isGrounded)
+        {
+            // velocity.y = -this.groundedDownSpeed;
+            velocity.y = 0;
+        }
+        if (applyGravity)
+        {
+            // float y = gravity * Time.deltaTime;
+            // Debug.Log("Y : " + y);
+            // velocity.y += y;
+            // this.velocity.y = this.controller.velocity.y;
+            this.velocity.y += this.gravity * Time.deltaTime;
+            // Debug.Log("Player2 : " + this.controller.velocity);
+        }
     }
 
     void DoMove()

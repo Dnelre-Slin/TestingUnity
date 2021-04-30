@@ -45,7 +45,11 @@ public class Controllable : MonoBehaviour
     private Controllable next = null;
     private Controllable prev = null;
 
-    private bool isControlled = false;
+    private bool _isControlled = false;
+    public bool isControlled
+    {
+        get { return this._isControlled; }
+    }
 
     public void AddActionMap(string map)
     {
@@ -179,7 +183,7 @@ public class Controllable : MonoBehaviour
                 entry.Value.Enable();
             }
 
-            this.isControlled = true;
+            this._isControlled = true;
             OnNewControlled(this);
         }
     }
@@ -188,7 +192,7 @@ public class Controllable : MonoBehaviour
     {
         if (this.isControlled)
         {
-            this.isControlled = false;
+            this._isControlled = false;
 
             foreach (var entry in this.actionMapDict)
             {
@@ -200,5 +204,10 @@ public class Controllable : MonoBehaviour
                 this.playerCamera.enabled = false;
             }
         }
+    }
+
+    public void SetPlayerCamera(Camera newPlayerCamera)
+    {
+        this.playerCamera = newPlayerCamera;
     }
 }

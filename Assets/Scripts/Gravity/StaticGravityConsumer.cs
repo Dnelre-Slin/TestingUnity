@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaticGravityConsumer : BaseGravityConsumer
 {
     [SerializeField]
-    private BaseGravityProducer staticGravityProducer = null;
+    protected BaseGravityProducer staticGravityProducer = null;
     // Start is called before the first frame update
     void Start()
     {

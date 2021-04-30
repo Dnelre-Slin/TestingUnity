@@ -118,11 +118,15 @@ public class TestQuat : MonoBehaviour
         // Quaternion q00 = Quaternion.FromToRotation(Vector3.forward, dir) * qbase;
         // Debug.Log(q00.ToString("F8"));
         Quaternion q0 = Quaternion.FromToRotation(Vector3.forward, dir);
-        Debug.Log(q0.eulerAngles.ToString("F8"));
+        Debug.Log("Q0 : " + q0.ToString("F8"));
+        Debug.Log("Q0 (euler) : " + q0.eulerAngles.ToString("F8"));
         Quaternion q1 = Quaternion.AngleAxis(q0.eulerAngles.y, Vector3.up);
         Quaternion q2 = Quaternion.AngleAxis(q0.eulerAngles.x, q1 * Vector3.right);
         Debug.Log(q2.ToString("F8"));
         Debug.DrawRay(this.transform.position, (q2*q1) * Vector3.forward * 10, Color.magenta, 20);
+
+        Debug.Log("Mod : " + ((-1)%360));
+
         // Debug.Log((Quaternion.Inverse(qbase)*q0).eulerAngles.ToString("F8"));
         // Quaternion q1 = Quaternion.AngleAxis(q0.eulerAngles.z, Vector3.up);
         // this.transform.rotation = q1;

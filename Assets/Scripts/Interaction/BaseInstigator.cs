@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public abstract class BaseInstigator : MonoBehaviour
 {
     [SerializeField]
-    protected string actionMapName;
+    protected string actionMapName = "Player";
     protected Controllable controllable;
 
     protected BaseInteractable currentInteractable;
@@ -24,7 +24,10 @@ public abstract class BaseInstigator : MonoBehaviour
         this.controllable.AddActionMap(actionMapName);
         this.controllable.AddAction(actionMapName, "Interact", ActionTypeHandler.ActionType.Performed, OnInteract);
 
-        this.interactText.enabled = false;
+        if (this.interactText != null)
+        {
+            this.interactText.enabled = false;
+        }
     }
 
     virtual protected void LookForInteractable()
@@ -36,7 +39,17 @@ public abstract class BaseInstigator : MonoBehaviour
         if (this.currentInteractable != null)
         {
             this.currentInteractable.Interact();
-            interactText.text = this.currentInteractable.GetDescription();
+            // interactText.text = this.currentInteractable.GetDescription();
+            this.UpdateText(this.currentInteractable.GetDescription(), true);
+        }
+    }
+
+    protected void UpdateText(string newText, bool enable)
+    {
+        if (interactText != null)
+        {
+            interactText.text = newText;
+            interactText.enabled = this.controllable.isControlled ? enable : false;
         }
     }
 }

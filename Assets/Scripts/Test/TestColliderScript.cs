@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(BaseGravityConsumer))]
 public class TestColliderScript : MonoBehaviour
 {
-    private CapsuleCollider capsuleCollider;
+    // private CapsuleCollider capsuleCollider;
     private Rigidbody rgbd;
     private Controllable controllable;
-    private Vector3 moveDir = Vector3.zero;
+    // private Vector3 moveDir = Vector3.zero;
     public float moveSpeed = 5f;
     public float slopeAngle = 65f;
     private Vector3 groundNormal = Vector3.zero;
@@ -36,7 +36,7 @@ public class TestColliderScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.capsuleCollider = GetComponent<CapsuleCollider>();
+        // this.capsuleCollider = GetComponent<CapsuleCollider>();
         this.rgbd = GetComponent<Rigidbody>();
         this.gravityConsumer = GetComponent<BaseGravityConsumer>();
         this.playerCamera = GetComponentInChildren<Camera>();
@@ -46,6 +46,7 @@ public class TestColliderScript : MonoBehaviour
         this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
         this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
         this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+
     }
 
     // Update is called once per frame

@@ -16,6 +16,10 @@ public class DirectLookInstigator : BaseInstigator
         {
             lookDirection = playerCam.transform;
         }
+        else
+        {
+            Debug.LogError("No player camera found. Will result in unwanted behaviour");
+        }
     }
 
     // Update is called once per frame
@@ -27,17 +31,25 @@ public class DirectLookInstigator : BaseInstigator
     override protected void LookForInteractable()
     {
         RaycastHit hit;
-        int layerMask = 1 << 9;
+        // int layerMask = 1 << 9;
+        // int layerMask = LayerMask.GetMask("Interaction");
+        int layerMask = Physics.DefaultRaycastLayers;
         if (Physics.Raycast(this.lookDirection.position, this.lookDirection.forward, out hit, this.interactDistance, layerMask))
         {
             this.currentInteractable = hit.collider.transform.gameObject.GetComponent<BaseInteractable>();
-            this.interactText.text = this.currentInteractable.GetDescription();
-            this.interactText.enabled = true;
+            // this.interactText.text = this.currentInteractable.GetDescription();
+            // this.interactText.enabled = true;
+            if (this.currentInteractable != null)
+            {
+                this.UpdateText(this.currentInteractable.GetDescription(), true);
+                return;
+            }
         }
-        else
+        // else
         {
             this.currentInteractable = null;
-            this.interactText.enabled = false;
+            // this.interactText.enabled = false;
+            this.UpdateText("", false);
         }
     }
 }

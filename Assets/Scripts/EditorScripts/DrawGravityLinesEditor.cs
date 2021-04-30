@@ -16,7 +16,7 @@ public class DrawGravityLinesEditor : Editor
         SceneView.duringSceneGui += CustomOnSceneGUI;
     }
 
-        private void CustomOnSceneGUI(SceneView sceneView)
+    private void CustomOnSceneGUI(SceneView sceneView)
     {
         //scale = EditorGUILayout.Slider(scale, 0, 10);
 
