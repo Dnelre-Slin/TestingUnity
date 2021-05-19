@@ -12,6 +12,7 @@ public class TestRigidbodyClone : MonoBehaviour
     [SerializeField]
     private Rigidbody originalRgbd = null;
     private Rigidbody rgbd = null;
+    private List<Collider> ignoreColliders = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,10 @@ public class TestRigidbodyClone : MonoBehaviour
             // this.rgbd.useGravity = this.originalRgbd.useGravity;
             this.rgbd.useGravity = false;
             this.rgbd.constraints = this.originalRgbd.constraints;
+        }
+        if (this.ignoreObject != null)
+        {
+            ignoreColliders = new List<Collider>(this.ignoreObject.GetComponentsInChildren<Collider>());
         }
     }
 
@@ -41,7 +46,7 @@ public class TestRigidbodyClone : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
 
-        if (this.originalRgbd != null && this.ignoreObject != collision.gameObject)
+        if (this.originalRgbd != null && this.ignoreColliders != null && !this.ignoreColliders.Contains(collision.collider))
         {
         Debug.Log("Collision with : " + collision.gameObject);
         Debug.Log("Vel : " + this.rgbd.velocity.magnitude);
