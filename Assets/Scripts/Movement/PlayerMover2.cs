@@ -132,7 +132,7 @@ public class PlayerMover2 : MonoBehaviour
     void HandleGravity()
     {
         // this.velocity.y = this.controller.velocity.y;
-        this.velocity.y = 0;
+        // this.velocity.y = 0;
 
         // bool skip = true;
 
