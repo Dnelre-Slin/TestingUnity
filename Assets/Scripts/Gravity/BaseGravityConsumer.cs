@@ -4,8 +4,10 @@ using UnityEngine;
 
 abstract public class BaseGravityConsumer : MonoBehaviour
 {
+    [SerializeField]
+    protected Vector3 defaultGravity = Vector3.zero;
     protected BaseGravityProducer currentGravityProducer;
-    // Start is called before the first frame update
+
     virtual public Vector3 GetGravity()
     {
         // Quaternion.Slerp
@@ -13,6 +15,11 @@ abstract public class BaseGravityConsumer : MonoBehaviour
         {
             return currentGravityProducer.GetGravtiy(this.transform);
         }
-        return Vector3.zero; // Zero-G
+        return this.defaultGravity;
+    }
+
+    virtual public void SetDefaultGravity(Vector3 newDefaultGravity)
+    {
+        this.defaultGravity = newDefaultGravity;
     }
 }

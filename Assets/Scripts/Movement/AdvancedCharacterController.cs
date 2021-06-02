@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider))]
+// [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 // [RequireComponent(typeof(RelativeRigidbody))]
 [RequireComponent(typeof(BaseGravityConsumer))]
@@ -115,7 +115,7 @@ public class AdvancedCharacterController : MonoBehaviour
     void OnCollisionStay(Collision col)
     {
         Vector3 gravity = -this.gravityConsumer.GetGravity();
-        ContactPoint[] contactPoints = new ContactPoint[10]; // Hoping 10 is enough.
+        ContactPoint[] contactPoints = new ContactPoint[col.contactCount];
         int size = col.GetContacts(contactPoints);
         for (int i = 0; i < size; i++)
         {
@@ -132,7 +132,7 @@ public class AdvancedCharacterController : MonoBehaviour
     {
         this.isGrounded = false;
         this.groundNormal = Vector3.zero;
-        // ContactPoint[] contactPoints = new ContactPoint[10]; // Hoping 10 is enough.
+        // ContactPoint[] contactPoints = new ContactPoint[col.contactCount];
         // int size = col.GetContacts(contactPoints);
         // Debug.Log("Exit : " + size);
         // for (int i = 0; i < size; i++)

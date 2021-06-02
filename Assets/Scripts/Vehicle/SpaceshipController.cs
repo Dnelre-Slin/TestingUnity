@@ -67,6 +67,12 @@ public class SpaceshipController : MonoBehaviour
         this.turnVelocity.z = -context.ReadValue<float>() * this.rollSensitivity;
     }
 
+    public void OnUnpossesed()
+    {
+        this.thrustVelocity = Vector3.zero;
+        this.turnVelocity = Vector3.zero;
+    }
+
     void HandleThrust()
     {
         this.rgbd.velocity = this.transform.TransformDirection(Vector3.Scale(this.thrustVelocity, this.thurstSpeeds) * Time.deltaTime);
@@ -80,5 +86,6 @@ public class SpaceshipController : MonoBehaviour
     public void OnExitVehicle(InputAction.CallbackContext context)
     {
         this.controllable.Unpossess();
+        this.OnUnpossesed(); // Consider moving this to a controllable subscription.
     }
 }
