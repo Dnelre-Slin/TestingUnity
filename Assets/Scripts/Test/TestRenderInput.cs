@@ -80,11 +80,11 @@ public class TestRenderInput : MonoBehaviour
             rgbd.velocity = this.testRenderCloner.transform.rotation * rgbd.velocity;
 
             //// AdvancedCharacterController. (Try to think of a better solution to this one)
-            AdvancedCharacterController acc = collider.gameObject.GetComponent<AdvancedCharacterController>();
-            if (acc != null)
-            {
-                acc.RotateGravityVelocity(this.testRenderCloner.transform.rotation);
-            }
+            // AdvancedCharacterController acc = collider.gameObject.GetComponent<AdvancedCharacterController>();
+            // if (acc != null)
+            // {
+            //     acc.RotateGravityVelocity(this.testRenderCloner.transform.rotation);
+            // }
 
             this.testRenderCloner.RemoveGameObject(cloneGameObject);
             this.EnableCameras(collider.gameObject);

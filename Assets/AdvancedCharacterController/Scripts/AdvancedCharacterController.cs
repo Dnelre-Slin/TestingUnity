@@ -19,8 +19,7 @@ public class AdvancedCharacterController : MonoBehaviour
     private float jumpMove = 0.03f;
 
     private Vector3 groundNormal = Vector3.zero;
-    private Vector3 gravityVelocity = Vector3.zero;
-    [SerializeField]
+    // private Vector3 gravityVelocity = Vector3.zero;
     private bool isGrounded = false;
     private bool jumped = false;
     private Vector2 moveVector = Vector2.zero;
@@ -46,33 +45,36 @@ public class AdvancedCharacterController : MonoBehaviour
         this.moveVector = movement;
     }
 
-    public void RotateGravityVelocity(Quaternion rotation)
-    {
-        this.gravityVelocity = rotation * this.gravityVelocity;
-    }
+    // public void RotateGravityVelocity(Quaternion rotation)
+    // {
+    //     this.gravityVelocity = rotation * this.gravityVelocity;
+    // }
 
     void FixedUpdate()
     {
         Vector3 gravity = this.gravityConsumer.GetGravity();
+        Vector3 gravityNormalized = gravity.normalized;
         Quaternion q = Quaternion.FromToRotation(this.transform.up, -gravity.normalized);
         this.transform.rotation = q * this.transform.rotation;
+
+        Vector3 gravityVelocity = gravityNormalized *  Vector3.Dot(gravityNormalized, this.rgbd.velocity);
 
         if (this.isGrounded)
         {
             if (this.jumped)
             {
-                this.gravityVelocity = this.jumpStrength * -gravity.normalized;
-                this.transform.position += -gravity.normalized * this.jumpMove; // Used to move character model out of ground collision, so jump can occur. Happens on jump
+                gravityVelocity = this.jumpStrength * -gravityNormalized;
+                this.transform.position += -gravityNormalized * this.jumpMove; // Used to move character model out of ground collision, so jump can occur. Happens on jump
                 this.jumped = false;
             }
             else
             {
-                this.gravityVelocity = Vector3.zero;
+                gravityVelocity = Vector3.zero;
             }
         }
         else
         {
-            this.gravityVelocity += gravity * Time.fixedDeltaTime;
+            gravityVelocity += gravity * Time.fixedDeltaTime;
         }
 
         Quaternion qn = Quaternion.FromToRotation(this.transform.up, this.groundNormal);
@@ -81,7 +83,7 @@ public class AdvancedCharacterController : MonoBehaviour
         Vector3 moveDirection = projectedForward * moveVector.y + projectedRight * moveVector.x;
 
         Vector3 moveVel = moveDirection * Time.fixedDeltaTime * this.moveSpeed;
-        moveVel += this.gravityVelocity;
+        moveVel += gravityVelocity;
         this.rgbd.velocity = moveVel;
     }
 

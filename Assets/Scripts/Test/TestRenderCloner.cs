@@ -263,11 +263,11 @@ public class TestRenderCloner : MonoBehaviour
             // rgbd.velocity = this.testRenderInput.transform.rotation * rgbd.velocity; // Needs to be uncommented if the 'source' is ever to be rotated.
 
             //// AdvancedCharacterController. (Try to think of a better solution to this one)
-            AdvancedCharacterController acc = collider.gameObject.GetComponent<AdvancedCharacterController>();
-            if (acc != null)
-            {
-                acc.RotateGravityVelocity(Quaternion.Inverse(this.transform.rotation));
-            }
+            // AdvancedCharacterController acc = collider.gameObject.GetComponent<AdvancedCharacterController>();
+            // if (acc != null)
+            // {
+            //     acc.RotateGravityVelocity(Quaternion.Inverse(this.transform.rotation));
+            // }
 
             this.testRenderInput.AddGameObject(collider.gameObject);
         }

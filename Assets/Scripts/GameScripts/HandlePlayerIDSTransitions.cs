@@ -65,7 +65,7 @@ public class HandlePlayerIDSTransitions : MonoBehaviour
     {
         if (sourceObject == this.playerGameObject)
         {
-            advancedCharacterController.RotateGravityVelocity(Quaternion.Inverse(exteriorZone.rotation));
+            // advancedCharacterController.RotateGravityVelocity(Quaternion.Inverse(exteriorZone.rotation));
         }
     }
 
@@ -73,7 +73,7 @@ public class HandlePlayerIDSTransitions : MonoBehaviour
     {
         if (sourceObject == this.playerGameObject)
         {
-            advancedCharacterController.RotateGravityVelocity(exteriorZone.rotation);
+            // advancedCharacterController.RotateGravityVelocity(exteriorZone.rotation);
         }
     }
 }
