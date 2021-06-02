@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BaseGravityConsumer))]
 public class AdvancedCharacterController : MonoBehaviour
 {
     private Rigidbody rgbd;
-    private BaseGravityConsumer gravityConsumer;
+    private IGravityConsumer gravityConsumer;
 
     [SerializeField]
     private float moveSpeed = 5f;
@@ -17,6 +16,8 @@ public class AdvancedCharacterController : MonoBehaviour
     private float jumpStrength = 5f;
     [SerializeField]
     private float jumpMove = 0.03f;
+    [SerializeField]
+    private Vector3 defaultGravity = new Vector3(0f, -9.81f, 0f);
 
     private Vector3 groundNormal = Vector3.zero;
     private bool isGrounded = false;
@@ -26,7 +27,7 @@ public class AdvancedCharacterController : MonoBehaviour
     void Start()
     {
         this.rgbd = GetComponent<Rigidbody>();
-        this.gravityConsumer = GetComponent<BaseGravityConsumer>();
+        this.gravityConsumer = GetComponent<IGravityConsumer>();
 
         this.rgbd.useGravity = false;
     }
@@ -44,9 +45,18 @@ public class AdvancedCharacterController : MonoBehaviour
         this.moveVector = movement;
     }
 
+    Vector3 GetGravity()
+    {
+        if (this.gravityConsumer != null)
+        {
+            return this.gravityConsumer.GetGravity();
+        }
+        return this.defaultGravity;
+    }
+
     void FixedUpdate()
     {
-        Vector3 gravity = this.gravityConsumer.GetGravity();
+        Vector3 gravity = this.GetGravity();
         Vector3 gravityNormalized = gravity.normalized;
         Quaternion q = Quaternion.FromToRotation(this.transform.up, -gravity.normalized);
         this.transform.rotation = q * this.transform.rotation;
@@ -83,7 +93,7 @@ public class AdvancedCharacterController : MonoBehaviour
 
     void OnCollisionStay(Collision col)
     {
-        Vector3 gravity = -this.gravityConsumer.GetGravity();
+        Vector3 gravity = -this.GetGravity();
         ContactPoint[] contactPoints = new ContactPoint[col.contactCount];
         int size = col.GetContacts(contactPoints);
         for (int i = 0; i < size; i++)

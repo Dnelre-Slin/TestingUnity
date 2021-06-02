@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// [RequireComponent(typeof(AdvancedCharacterController))]
 [RequireComponent(typeof(Controllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
 public class AdvancedPlayerController : MonoBehaviour
 {

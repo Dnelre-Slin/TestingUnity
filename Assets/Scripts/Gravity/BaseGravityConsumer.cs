@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class BaseGravityConsumer : MonoBehaviour
+abstract public class BaseGravityConsumer : MonoBehaviour, IGravityConsumer
 {
     [SerializeField]
     protected Vector3 defaultGravity = Vector3.zero;
