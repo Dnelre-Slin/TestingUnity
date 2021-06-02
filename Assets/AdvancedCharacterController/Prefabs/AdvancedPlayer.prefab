@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 3348564721794966639}
   - component: {fileID: 3348564721794966636}
   - component: {fileID: 5132010946665864931}
-  - component: {fileID: 537419236069049697}
   m_Layer: 0
   m_Name: AdvancedPlayer
   m_TagString: Untagged
@@ -190,6 +189,7 @@ MonoBehaviour:
   slopeAngle: 65
   jumpStrength: 5
   jumpMove: 0.03
+  defaultGravity: {x: 0, y: -9.81, z: 0}
 --- !u!136 &3348564721794966634
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -287,16 +287,3 @@ MonoBehaviour:
   actionMapName: Player
   interactText: {fileID: 0}
   interactDistance: 2
---- !u!114 &537419236069049697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348564721794966624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2bfa7683ec51a46a25a508bd4bbfad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerGameObject: {fileID: 3348564721794966624}

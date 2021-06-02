@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if (ENABLE_INPUT_SYSTEM)
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
 public class AdvancedPlayerControllerSimplified : MonoBehaviour
 {
+    #if (ENABLE_LEGACY_INPUT_MANAGER)
     [SerializeField]
     private string inputHorizontalAxis = "Horizontal";
     [SerializeField]
@@ -15,6 +19,18 @@ public class AdvancedPlayerControllerSimplified : MonoBehaviour
     private string inputMouseYAxis = "Mouse Y";
     [SerializeField]
     private string inputJumpButton = "space";
+    #elif (ENABLE_INPUT_SYSTEM)
+    [SerializeField]
+    private InputActionAsset actionAsset = null;
+    [SerializeField]
+    private string actionMap = "Player";
+    [SerializeField]
+    private string inputMove = "Move";
+    [SerializeField]
+    private string inputLook = "Look";
+    [SerializeField]
+    private string inputJump = "Jump";
+    #endif
 
     private AdvancedCharacterController controller;
     private AdvancedPlayerCameraController cameraController;
@@ -22,8 +38,21 @@ public class AdvancedPlayerControllerSimplified : MonoBehaviour
     {
         this.controller = GetComponent<AdvancedCharacterController>();
         this.cameraController = GetComponent<AdvancedPlayerCameraController>();
+
+        #if (ENABLE_INPUT_SYSTEM)
+        InputActionMap inputActionMap = this.actionAsset.FindActionMap(this.actionMap);
+        InputAction inputActionMove = inputActionMap.FindAction(inputMove);
+        inputActionMove.performed += ctx => OnMove(ctx);
+        inputActionMove.canceled += ctx => OnMove(ctx);
+        InputAction inputActionLook = inputActionMap.FindAction(inputLook);
+        inputActionLook.performed += OnLook;
+        inputActionLook.canceled += OnLook;
+        InputAction inputActionJump = inputActionMap.FindAction(inputJump);
+        inputActionJump.performed += OnJump;
+        #endif
     }
 
+    #if (ENABLE_LEGACY_INPUT_MANAGER)
     void Update()
     {
         if (this.inputHorizontalAxis != "" && this.inputVerticalAxis != "")
@@ -44,4 +73,20 @@ public class AdvancedPlayerControllerSimplified : MonoBehaviour
             }
         }
     }
+    #endif
+
+    #if (ENABLE_INPUT_SYSTEM)
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        this.cameraController.Look(context.ReadValue<Vector2>());
+    }
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        this.controller.Move(context.ReadValue<Vector2>());
+    }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        this.controller.Jump();
+    }
+    #endif
 }
