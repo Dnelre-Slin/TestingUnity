@@ -3,27 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(AdvancedCharacterController))]
-[RequireComponent(typeof(Controllable))]
+// [RequireComponent(typeof(AdvancedCharacterController))]
+[RequireComponent(typeof(Controllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
 public class AdvancedPlayerController : MonoBehaviour
 {
-    private AdvancedCharacterController controller;
     private Controllable controllable;
-    private Camera playerCamera;
-
-    [SerializeField]
-    private float mouseSensitivity = 5f;
-
-    private float pitchRotation = 0f;
+    private AdvancedCharacterController controller;
+    private AdvancedPlayerCameraController cameraController;
     private Vector2 inputMove;
-    private Vector2 inputLook;
     private bool jumped = false;
 
     void Start()
     {
         this.controller = GetComponent<AdvancedCharacterController>();
-
-        this.playerCamera = GetComponentInChildren<Camera>();
+        this.cameraController = GetComponent<AdvancedPlayerCameraController>();
 
         this.controllable = GetComponent<Controllable>();
 
@@ -35,13 +28,12 @@ public class AdvancedPlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleCameraMovement();
         MoveController();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        this.inputLook = context.ReadValue<Vector2>();
+        this.cameraController.Look(context.ReadValue<Vector2>());
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -50,19 +42,6 @@ public class AdvancedPlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         this.jumped = true;
-    }
-
-    void HandleCameraMovement()
-    {
-        float mouseX = this.inputLook.x * mouseSensitivity * Time.fixedDeltaTime;
-        float mouseY = this.inputLook.y * mouseSensitivity * Time.fixedDeltaTime;
-
-        this.transform.Rotate(Vector3.up * mouseX);
-
-        pitchRotation -= mouseY;
-        pitchRotation = Mathf.Clamp(pitchRotation, -90f, 90f);
-
-        playerCamera.transform.localRotation = Quaternion.Euler(pitchRotation, 0, 0);
     }
 
     void MoveController()

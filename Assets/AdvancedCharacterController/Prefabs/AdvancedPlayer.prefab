@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3348564721794966634}
   - component: {fileID: 3348564721794966635}
   - component: {fileID: 3348564721794966638}
+  - component: {fileID: 3525332785377604991}
   - component: {fileID: 3348564721794966639}
   - component: {fileID: 3348564721794966636}
   - component: {fileID: 5132010946665864931}
@@ -189,7 +190,6 @@ MonoBehaviour:
   slopeAngle: 65
   jumpStrength: 5
   jumpMove: 0.03
-  isGrounded: 0
 --- !u!136 &3348564721794966634
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -234,6 +234,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionAsset: {fileID: -944628639613478452, guid: 40f72adab37a18b4db9737a613b353c6, type: 3}
   playerCamera: {fileID: 3348564721571887494}
+--- !u!114 &3525332785377604991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348564721794966624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c6fb9fd71be594091ef7d9969a47a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 5
 --- !u!114 &3348564721794966639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2e897d045e5214d85898a97043b4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 5
 --- !u!114 &3348564721794966636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977f973aa99df1e4b9c401219ed41d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultGravity: {x: 0, y: 0, z: 0}
 --- !u!114 &5132010946665864931
 MonoBehaviour:
   m_ObjectHideFlags: 0
