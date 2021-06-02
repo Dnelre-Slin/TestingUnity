@@ -10,8 +10,6 @@ public class AdvancedPlayerController : MonoBehaviour
     private Controllable controllable;
     private AdvancedCharacterController controller;
     private AdvancedPlayerCameraController cameraController;
-    private Vector2 inputMove;
-    private bool jumped = false;
 
     void Start()
     {
@@ -26,31 +24,16 @@ public class AdvancedPlayerController : MonoBehaviour
         this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
     }
 
-    void Update()
-    {
-        MoveController();
-    }
-
     public void OnLook(InputAction.CallbackContext context)
     {
         this.cameraController.Look(context.ReadValue<Vector2>());
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        this.inputMove = context.ReadValue<Vector2>();
+        this.controller.Move(context.ReadValue<Vector2>());
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        this.jumped = true;
-    }
-
-    void MoveController()
-    {
-        if (this.jumped)
-        {
-            this.controller.Jump();
-            this.jumped = false;
-        }
-        this.controller.Move(this.inputMove);
+        this.controller.Jump();
     }
 }
