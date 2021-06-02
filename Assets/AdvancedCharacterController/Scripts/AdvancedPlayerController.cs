@@ -19,7 +19,6 @@ public class AdvancedPlayerController : MonoBehaviour
     private Vector2 inputLook;
     private bool jumped = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         this.controller = GetComponent<AdvancedCharacterController>();
@@ -34,7 +33,6 @@ public class AdvancedPlayerController : MonoBehaviour
         this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
     }
 
-    // Update is called once per frame
     void Update()
     {
         HandleCameraMovement();
