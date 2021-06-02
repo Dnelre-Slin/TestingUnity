@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Controllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
+[RequireComponent(typeof(IControllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
 public class AdvancedPlayerController : MonoBehaviour
 {
-    private Controllable controllable;
+    private IControllable controllable;
     private AdvancedCharacterController controller;
     private AdvancedPlayerCameraController cameraController;
 
@@ -15,7 +15,7 @@ public class AdvancedPlayerController : MonoBehaviour
         this.controller = GetComponent<AdvancedCharacterController>();
         this.cameraController = GetComponent<AdvancedPlayerCameraController>();
 
-        this.controllable = GetComponent<Controllable>();
+        this.controllable = GetComponent<IControllable>();
 
         this.controllable.AddActionMap("Player");
         this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);

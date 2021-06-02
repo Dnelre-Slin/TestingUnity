@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IControllable
-{
-    int GameobjectId { get; set; }
-    void TakePossession();
-}
+// public interface IControllable
+// {
+//     int GameobjectId { get; set; }
+//     void TakePossession();
+// }
