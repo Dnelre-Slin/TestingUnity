@@ -19,7 +19,6 @@ public class AdvancedCharacterController : MonoBehaviour
     private float jumpMove = 0.03f;
 
     private Vector3 groundNormal = Vector3.zero;
-    // private Vector3 gravityVelocity = Vector3.zero;
     private bool isGrounded = false;
     private bool jumped = false;
     private Vector2 moveVector = Vector2.zero;
@@ -44,11 +43,6 @@ public class AdvancedCharacterController : MonoBehaviour
     {
         this.moveVector = movement;
     }
-
-    // public void RotateGravityVelocity(Quaternion rotation)
-    // {
-    //     this.gravityVelocity = rotation * this.gravityVelocity;
-    // }
 
     void FixedUpdate()
     {
