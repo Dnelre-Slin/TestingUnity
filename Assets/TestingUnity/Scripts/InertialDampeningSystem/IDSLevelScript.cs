@@ -35,7 +35,7 @@ public class IDSLevelScript : MonoBehaviour
     //     }
     // }
 
-    void Start()
+    void Awake()
     {
         // if (!this.inited)
         // {
@@ -83,6 +83,7 @@ public class IDSLevelScript : MonoBehaviour
 
     public int GetPositionIndex(GameObject gameObject)
     {
+        Debug.Log(this.positionIndexes);
         for (int i = 0; i < this.positionIndexes.Count; i++)
         {
             if (this.positionIndexes[i] == null)
