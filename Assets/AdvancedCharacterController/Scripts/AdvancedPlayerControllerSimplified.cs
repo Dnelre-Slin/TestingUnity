@@ -41,6 +41,7 @@ public class AdvancedPlayerControllerSimplified : MonoBehaviour
 
         #if (ENABLE_INPUT_SYSTEM)
         InputActionMap inputActionMap = this.actionAsset.FindActionMap(this.actionMap);
+        inputActionMap.Enable();
         InputAction inputActionMove = inputActionMap.FindAction(inputMove);
         inputActionMove.performed += ctx => OnMove(ctx);
         inputActionMove.canceled += ctx => OnMove(ctx);
