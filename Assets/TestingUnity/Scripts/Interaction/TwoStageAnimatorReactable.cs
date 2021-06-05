@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(AnimationPlayer))]
 public class TwoStageAnimatorReactable : BaseReactable
 {
-
     protected AnimationPlayer animationPlayer;
     [SerializeField]
     protected string stageOneDescription = "Open";
@@ -14,7 +13,6 @@ public class TwoStageAnimatorReactable : BaseReactable
 
     protected bool stageOne;
 
-    // Start is called before the first frame update
     void Start()
     {
         this.animationPlayer = GetComponent<AnimationPlayer>();

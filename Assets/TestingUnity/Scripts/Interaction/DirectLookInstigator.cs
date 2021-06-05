@@ -7,7 +7,7 @@ public class DirectLookInstigator : BaseInstigator
     [SerializeField]
     private float interactDistance = 2f;
     private Transform lookDirection;
-    // Start is called before the first frame update
+
     new void Start()
     {
         base.Start();
@@ -22,7 +22,6 @@ public class DirectLookInstigator : BaseInstigator
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         LookForInteractable();
@@ -31,25 +30,18 @@ public class DirectLookInstigator : BaseInstigator
     override protected void LookForInteractable()
     {
         RaycastHit hit;
-        // int layerMask = 1 << 9;
-        // int layerMask = LayerMask.GetMask("Interaction");
         int layerMask = Physics.DefaultRaycastLayers;
         if (Physics.Raycast(this.lookDirection.position, this.lookDirection.forward, out hit, this.interactDistance, layerMask))
         {
             this.currentInteractable = hit.collider.transform.gameObject.GetComponent<BaseInteractable>();
-            // this.interactText.text = this.currentInteractable.GetDescription();
-            // this.interactText.enabled = true;
             if (this.currentInteractable != null)
             {
                 this.UpdateText(this.currentInteractable.GetDescription(), true);
                 return;
             }
         }
-        // else
-        {
-            this.currentInteractable = null;
-            // this.interactText.enabled = false;
-            this.UpdateText("", false);
-        }
+        // If no interactable in sight:
+        this.currentInteractable = null;
+        this.UpdateText("", false);
     }
 }

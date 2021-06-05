@@ -25,7 +25,6 @@ public abstract class BaseInstigator : MonoBehaviour
         }
     }
 
-
     protected void Start()
     {
         if (this.interactText != null)
