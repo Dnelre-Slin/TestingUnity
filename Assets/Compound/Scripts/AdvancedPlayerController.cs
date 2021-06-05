@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(IControllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
+[RequireComponent(typeof(BaseInstigator))]
 public class AdvancedPlayerController : MonoBehaviour
 {
     private IControllable controllable;
     private AdvancedCharacterController controller;
     private AdvancedPlayerCameraController cameraController;
+    private BaseInstigator instigator;
 
     void Start()
     {
         this.controller = GetComponent<AdvancedCharacterController>();
         this.cameraController = GetComponent<AdvancedPlayerCameraController>();
+        this.instigator = GetComponent<BaseInstigator>();
 
         this.controllable = GetComponent<IControllable>();
 
@@ -21,6 +24,7 @@ public class AdvancedPlayerController : MonoBehaviour
         this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
         this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
         this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controllable.AddAction("Player", "Interact", ActionTypeHandler.ActionType.Performed, OnInteract);
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -34,5 +38,9 @@ public class AdvancedPlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         this.controller.Jump();
+    }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        this.instigator.Instigate();
     }
 }

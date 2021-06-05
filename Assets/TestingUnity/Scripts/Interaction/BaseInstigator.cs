@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Controllable))]
 public abstract class BaseInstigator : MonoBehaviour
 {
     [SerializeField]
     protected string actionMapName = "Player";
     [SerializeField]
     protected Text interactText;
-    protected Controllable controllable;
 
     protected BaseInteractable currentInteractable;
 
@@ -28,14 +26,8 @@ public abstract class BaseInstigator : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     protected void Start()
     {
-        this.controllable = GetComponent<Controllable>();
-
-        this.controllable.AddActionMap(actionMapName);
-        this.controllable.AddAction(actionMapName, "Interact", ActionTypeHandler.ActionType.Performed, OnInteract);
-
         if (this.interactText != null)
         {
             this.interactText.enabled = false;
@@ -46,12 +38,11 @@ public abstract class BaseInstigator : MonoBehaviour
     {
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
+    public void Instigate()
     {
         if (this.currentInteractable != null)
         {
             this.currentInteractable.Interact();
-            // interactText.text = this.currentInteractable.GetDescription();
             this.UpdateText(this.currentInteractable.GetDescription(), true);
         }
     }
