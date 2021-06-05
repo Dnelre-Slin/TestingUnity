@@ -45,10 +45,17 @@ public class Controllable : MonoBehaviour, IControllable
     private Controllable next = null;
     private Controllable prev = null;
 
+    private ControllableManagment controllableManager = null;
+
     private bool _isControlled = false;
     public bool isControlled
     {
         get { return this._isControlled; }
+    }
+
+    void Start()
+    {
+        this.controllableManager = GameObject.FindObjectOfType<ControllableManagment>();
     }
 
     public void AddActionMap(string map)
@@ -117,6 +124,15 @@ public class Controllable : MonoBehaviour, IControllable
     public void InitControll()
     {
         this.Controll();
+    }
+
+    public void AquirePossession()
+    {
+        if (this.controllableManager != null)
+        {
+            Controllable currentControllable = this.controllableManager.GetCurrentControlledControllable();
+            currentControllable.Possess(this);
+        }
     }
 
     public void Possess(Controllable newNext)
