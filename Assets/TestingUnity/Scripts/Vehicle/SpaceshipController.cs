@@ -34,7 +34,7 @@ public class SpaceshipController : MonoBehaviour
         this.controllable.AddAction("Spaceship", "ThrustUp", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustUp);
         this.controllable.AddAction("Spaceship", "TurnPitchYaw", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnPitchYaw);
         this.controllable.AddAction("Spaceship", "TurnRoll", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnRoll);
-        this.controllable.AddAction("Spaceship", "ExitVehicle", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnExitVehicle);
+        this.controllable.AddAction("Spaceship", "ExitVehicle", ActionTypeHandler.ActionType.Performed, OnExitVehicle);
 
     }
 

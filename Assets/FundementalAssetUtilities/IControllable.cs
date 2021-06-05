@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IControllable
 {
     void AquirePossession();
+    void Possess(IControllable newNext);
     void Unpossess();
 }

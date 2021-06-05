@@ -2,203 +2,107 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if (ENABLE_INPUT_SYSTEM)
 using UnityEngine.InputSystem;
+#endif
 
 public class Controllable : MonoBehaviour, IControllable
 {
     public static event Action<Controllable> OnNewControlled;
 
+    #if (ENABLE_INPUT_SYSTEM)
     [SerializeField]
     private InputActionAsset actionAsset = null;
+    #endif
     [SerializeField]
     private Camera playerCamera = null;
 
-    private Dictionary<string, InputActionMap> actionMapDict = new Dictionary<string, InputActionMap>();
-    private Dictionary<string, InputAction> actionDict = new Dictionary<string, InputAction>();
-    private Dictionary<string, Action<InputAction.CallbackContext>> actionSubscriptions = new Dictionary<string, Action<InputAction.CallbackContext>>();
+    private ControllableManagment controllableManagment = null;
 
-    private Controllable next = null;
-    private Controllable prev = null;
+    private PossessionSystem possessionSystem = null;
+    private InputSystemControlScheme inputSystemControlScheme = null;
 
-    private ControllableManagment controllableManager = null;
-
-    private bool _isControlled = false;
     public bool isControlled
     {
-        get { return this._isControlled; }
+        get { return this.possessionSystem.isControlled; }
     }
 
-    void Start()
+    void Awake()
     {
-        this.controllableManager = GameObject.FindObjectOfType<ControllableManagment>();
+        this.controllableManagment = GameObject.FindObjectOfType<ControllableManagment>();
+        this.inputSystemControlScheme = new InputSystemControlScheme();
+        this.possessionSystem = new PossessionSystem(this.controllableManagment, this.playerCamera, this.inputSystemControlScheme, this.OnNewControlledCallback);
     }
 
     public void AddActionMap(string map)
     {
-        InputActionMap actionMap = this.actionAsset.FindActionMap(map);
-        this.actionMapDict[map] = actionMap;
+        #if (ENABLE_INPUT_SYSTEM)
+        if (this.actionAsset != null)
+        {
+            this.inputSystemControlScheme.AddActionMap(actionAsset, map);
+        }
+        #elif (ENABLE_LEGACY_INPUT_MANAGER)
+        throw new UnityException("AddActionMap can only be used with new InputSystem");
+        #endif
     }
 
     public void AddAction(string map, string action, ActionTypeHandler.ActionType actionType, Action<InputAction.CallbackContext> callback)
     {
-        if (!this.actionMapDict.ContainsKey(map))
+        #if (ENABLE_INPUT_SYSTEM)
+        if (this.actionAsset != null)
         {
-            AddActionMap(map);
+            this.inputSystemControlScheme.AddAction(actionAsset, map, action, actionType, callback);
         }
-        if (!this.actionDict.ContainsKey(action))
-        {
-            InputAction inputAction = this.actionMapDict[map].FindAction(action);
-            this.actionDict[action] = inputAction;
-        }
-        if (ActionTypeHandler.IsStarted(actionType))
-        {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.isControlled) {callback(ctx);} };
-            this.actionDict[action].started += useCallback;
-            string subKey = map + action + ActionTypeHandler.ActionType.Started;
-            this.actionSubscriptions[subKey] = useCallback;
-        }
-        if (ActionTypeHandler.IsPerformed(actionType))
-        {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.isControlled) {callback(ctx);} };
-            this.actionDict[action].performed += useCallback;
-            string subKey = map + action + ActionTypeHandler.ActionType.Performed;
-            this.actionSubscriptions[subKey] = useCallback;
-        }
-        if (ActionTypeHandler.IsCanceled(actionType))
-        {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.isControlled) {callback(ctx);} };
-            this.actionDict[action].canceled += useCallback;
-            string subKey = map + action + ActionTypeHandler.ActionType.Canceled;
-            this.actionSubscriptions[subKey] = useCallback;
-        }
+        #elif (ENABLE_LEGACY_INPUT_MANAGER)
+        throw new UnityException("AddAction can only be used with new InputSystem");
+        #endif
     }
 
     public void RemoveAction(string map, string action, ActionTypeHandler.ActionType actionType)
     {
-        if (ActionTypeHandler.IsStarted(actionType))
+        #if (ENABLE_INPUT_SYSTEM)
+        if (this.actionAsset != null)
         {
-            string subKey = map + action + ActionTypeHandler.ActionType.Started;
-            this.actionDict[action].started -= this.actionSubscriptions[subKey];
-            this.actionSubscriptions.Remove(subKey);
+            this.inputSystemControlScheme.RemoveAction(map, action, actionType);
         }
-        if (ActionTypeHandler.IsPerformed(actionType))
-        {
-            string subKey = map + action + ActionTypeHandler.ActionType.Performed;
-            this.actionDict[action].performed -= this.actionSubscriptions[subKey];
-            this.actionSubscriptions.Remove(subKey);
-        }
-        if (ActionTypeHandler.IsCanceled(actionType))
-        {
-            string subKey = map + action + ActionTypeHandler.ActionType.Canceled;
-            this.actionDict[action].canceled -= this.actionSubscriptions[subKey];
-            this.actionSubscriptions.Remove(subKey);
-        }
+        #elif (ENABLE_LEGACY_INPUT_MANAGER)
+        throw new UnityException("RemoveAction can only be used with new InputSystem");
+        #endif
+    }
+
+    private void OnNewControlledCallback(PossessionSystem possessionSystem)
+    {
+        OnNewControlled(this);
     }
 
     // Used to set this controllable as the initial controllable. Should only be called be ControllableManagment
     public void InitControll()
     {
-        this.Controll();
+        this.possessionSystem.InitControll();
     }
 
     public void AquirePossession()
     {
-        if (this.controllableManager != null)
+        if (this.controllableManagment != null)
         {
-            Controllable currentControllable = this.controllableManager.GetCurrentControlledControllable();
+            Controllable currentControllable = this.controllableManagment.GetCurrentControlledControllable();
             currentControllable.Possess(this);
         }
     }
 
-    public void Possess(Controllable newNext)
+    public void Possess(IControllable newNext)
     {
-        if (newNext == this)
-        {
-            throw new ArgumentException("Cannot possess itself");
-        }
-        if (this.next != null)
-        {
-            throw new UnityException("Not the head of a possesion chain");
-        }
-        this.next = newNext;
-        this.UnControll();
-        newNext.HandlePossess(this);
-    }
-
-    private void HandlePossess(Controllable newPrev)
-    {
-        if (this.prev != null || this.next != null)
-        {
-            throw new UnityException("Already in a possesion chain");
-        }
-        this.prev = newPrev;
-        this.Controll();
+        this.possessionSystem.Possess(((Controllable)newNext).possessionSystem);
     }
 
     public void Unpossess()
     {
-        if (this.next != null)
-        {
-            throw new UnityException("Not the head of a possesion chain");
-        }
-        if (this.prev == null)
-        {
-            throw new UnityException("Cannot unpossess root chain node");
-        }
-        this.UnControll();
-        this.prev.HandleUnPossess();
-        this.prev = null;
-    }
-
-    private void HandleUnPossess()
-    {
-        if (this.next == null)
-        {
-            throw new UnityException("Control returned to a node that does not have a child");
-        }
-        this.next = null;
-        this.Controll();
-    }
-
-    private void Controll()
-    {
-        if (!this.isControlled)
-        {
-            if (this.playerCamera != null)
-            {
-                this.playerCamera.enabled = true;
-            }
-
-            foreach (var entry in this.actionMapDict)
-            {
-                entry.Value.Enable();
-            }
-
-            this._isControlled = true;
-            OnNewControlled(this);
-        }
-    }
-
-    private void UnControll()
-    {
-        if (this.isControlled)
-        {
-            this._isControlled = false;
-
-            foreach (var entry in this.actionMapDict)
-            {
-                entry.Value.Disable();
-            }
-
-            if (this.playerCamera != null)
-            {
-                this.playerCamera.enabled = false;
-            }
-        }
+        this.possessionSystem.Unpossess();
     }
 
     public void SetPlayerCamera(Camera newPlayerCamera)
     {
         this.playerCamera = newPlayerCamera;
+        this.possessionSystem.SetPlayerCamera(newPlayerCamera);
     }
 }
