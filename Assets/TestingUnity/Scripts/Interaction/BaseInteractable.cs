@@ -17,6 +17,9 @@ public abstract class BaseInteractable : MonoBehaviour
 
     virtual public void Interact()
     {
-        baseReactable.TriggerReaction();
+        if (this.baseReactable != null)
+        {
+            this.baseReactable.TriggerReaction();
+        }
     }
 }

@@ -18,7 +18,11 @@ public class PassthroughDescriptionInteractable : BaseInteractable
 
     override public string GetDescription()
     {
-        return this.baseReactable.GetDescription();
+        if (this.baseReactable != null)
+        {
+            return this.baseReactable.GetDescription();
+        }
+        return this.description;
     }
 
 }
