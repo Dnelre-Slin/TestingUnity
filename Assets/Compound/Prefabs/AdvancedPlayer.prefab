@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3348564721794966639}
   - component: {fileID: 3348564721794966636}
   - component: {fileID: 5132010946665864931}
+  - component: {fileID: 8924597781122905702}
   m_Layer: 0
   m_Name: AdvancedPlayer
   m_TagString: Untagged
@@ -287,3 +288,17 @@ MonoBehaviour:
   actionMapName: Player
   interactText: {fileID: 0}
   interactDistance: 2
+--- !u!114 &8924597781122905702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348564721794966624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e6222589392884fbefcaac6d11c4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllable: {fileID: 3348564721794966638}
+  instigator: {fileID: 5132010946665864931}
