@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d956b4d3b7fade24c9b665666404d939, type: 2}
+  m_Motion: {fileID: 7400000, guid: a068db2c0b35e174fa1529d0deb86c73, type: 2}
   m_Tag: 
   m_SpeedParameter: DoorSpeed
   m_MirrorParameter: DoorTriggered
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e49e3003a841afd40b3bb22729e146a8, type: 2}
+  m_Motion: {fileID: 7400000, guid: 5fd5b711ab8edf746847d604d7836ad7, type: 2}
   m_Tag: 
   m_SpeedParameter: DoorSpeed
   m_MirrorParameter: 
