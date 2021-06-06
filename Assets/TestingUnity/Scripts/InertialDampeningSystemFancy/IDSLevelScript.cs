@@ -5,12 +5,12 @@ using UnityEngine;
 
 public struct SourceObjectData
 {
-    public IDSInternal idsInternal;
+    public IDSInternalFancy idsInternal;
     // public GameObject sourceObject;
     public IDSProjection idsProjection;
     public List<CameraInfo> cameraInfos;
 
-    public SourceObjectData(IDSInternal idsInternal, IDSProjection idsProjection, List<CameraInfo> cameraInfos)
+    public SourceObjectData(IDSInternalFancy idsInternal, IDSProjection idsProjection, List<CameraInfo> cameraInfos)
     {
         this.idsInternal = idsInternal;
         // this.sourceObject = sourceObject;

@@ -4,19 +4,19 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class IDSInternal : MonoBehaviour
+public class IDSInternalFancy : MonoBehaviour
 {
     [SerializeField]
-    private IDSExternal idsExternalReal = null;
+    private IDSExternalFancy idsExternalReal = null;
     [SerializeField]
     private Transform internalZone = null;
     [SerializeField]
     private IDSLevelScript idsLevelScript = null;
 
-    private InertialDampeningSystem inertialDampeningSystem = null;
+    private InertialDampeningSystemFancy inertialDampeningSystem = null;
 
     // private Transform projectionZone = null;
-    public IDSExternal idsExternal
+    public IDSExternalFancy idsExternal
     {
         get { return this.idsExternalReal; }
     }
@@ -31,13 +31,13 @@ public class IDSInternal : MonoBehaviour
         set { this.externalZoneReal = value; }
     }
 
-    private IDSInternal parentIds = null;
+    private IDSInternalFancy parentIds = null;
     private Transform thisProjection = null;
     private Dictionary<GameObject, bool> unenteredGameobjects;
 
     private Rigidbody externalRigidbody = null;
 
-    public void InitSetup(IDSExternal idsExternal, Transform internalZone, IDSLevelScript idsLevelScript, InertialDampeningSystem inertialDampeningSystem, Rigidbody externalRigidbody)
+    public void InitSetup(IDSExternalFancy idsExternal, Transform internalZone, IDSLevelScript idsLevelScript, InertialDampeningSystemFancy inertialDampeningSystem, Rigidbody externalRigidbody)
     {
         this.idsExternalReal = idsExternal;
         this.internalZone = internalZone;
@@ -109,7 +109,7 @@ public class IDSInternal : MonoBehaviour
     //     }
     // }
 
-    public void AddNewSourceObject(GameObject sourceObject, IDSExternal idsSourceObject)
+    public void AddNewSourceObject(GameObject sourceObject, IDSExternalFancy idsSourceObject)
     {
         // sourceObject.transform.parent = this.internalZone;
         // List<Transform> childProjections = null;
@@ -141,7 +141,7 @@ public class IDSInternal : MonoBehaviour
         }
     }
 
-    public void RemoveSourceObject(GameObject sourceObject, SourceObjectData sourceObjectData, IDSExternal idsSourceObject)
+    public void RemoveSourceObject(GameObject sourceObject, SourceObjectData sourceObjectData, IDSExternalFancy idsSourceObject)
     {
         if (idsSourceObject != null)
         {
@@ -169,7 +169,7 @@ public class IDSInternal : MonoBehaviour
         }
     }
 
-    public void SourceObjectEnter(GameObject sourceObject, Rigidbody sourceRgbd, IDSExternal idsSourceObject)
+    public void SourceObjectEnter(GameObject sourceObject, Rigidbody sourceRgbd, IDSExternalFancy idsSourceObject)
     {
         // IDSTransformations.TransformEnter(sourceObject.transform, sourceRgbd, this.internalZone, this.projectionZone);
         // sourceObject.transform.parent = this.internalZone;
@@ -219,17 +219,17 @@ public class IDSInternal : MonoBehaviour
     }
     public void SourceObjectEnter(GameObject sourceObject, Rigidbody rgbd)
     {
-        IDSExternal idsSourceObject = sourceObject.GetComponent<IDSExternal>();
+        IDSExternalFancy idsSourceObject = sourceObject.GetComponent<IDSExternalFancy>();
         SourceObjectEnter(sourceObject, rgbd, idsSourceObject);
     }
     public void SourceObjectEnter(GameObject sourceObject)
     {
         Rigidbody rgbd = sourceObject.GetComponent<Rigidbody>();
-        IDSExternal idsSourceObject = sourceObject.GetComponent<IDSExternal>();
+        IDSExternalFancy idsSourceObject = sourceObject.GetComponent<IDSExternalFancy>();
         SourceObjectEnter(sourceObject, rgbd, idsSourceObject);
     }
 
-    public void SourceObjectExit(GameObject sourceObject, Rigidbody sourceRgbd, IDSExternal idsSourceObject)
+    public void SourceObjectExit(GameObject sourceObject, Rigidbody sourceRgbd, IDSExternalFancy idsSourceObject)
     {
         // IDSTransformations.TransformExit(sourceObject.transform, sourceRgbd, this.internalZone, this.externalZone);
         // sourceObject.transform.parent = null;
@@ -278,13 +278,13 @@ public class IDSInternal : MonoBehaviour
     }
     public void SourceObjectExit(GameObject sourceObject, Rigidbody rgbd)
     {
-        IDSExternal idsSourceObject = sourceObject.GetComponent<IDSExternal>();
+        IDSExternalFancy idsSourceObject = sourceObject.GetComponent<IDSExternalFancy>();
         SourceObjectExit(sourceObject, rgbd, idsSourceObject);
     }
     public void SourceObjectExit(GameObject sourceObject)
     {
         Rigidbody rgbd = sourceObject.GetComponent<Rigidbody>();
-        IDSExternal idsSourceObject = sourceObject.GetComponent<IDSExternal>();
+        IDSExternalFancy idsSourceObject = sourceObject.GetComponent<IDSExternalFancy>();
         SourceObjectExit(sourceObject, rgbd, idsSourceObject);
     }
 
@@ -321,7 +321,7 @@ public class IDSInternal : MonoBehaviour
         if (rgbd != null) // Only gameobject with a rigidbody will be handled
         {
             Debug.Log("Exiting (" + this + ") : " + collider.gameObject.name);
-            IDSExternal idsSourceObject = collider.gameObject.GetComponent<IDSExternal>();
+            IDSExternalFancy idsSourceObject = collider.gameObject.GetComponent<IDSExternalFancy>();
             if (idsSourceObject == null)
             {
                 this.SourceObjectExit(collider.gameObject, rgbd);

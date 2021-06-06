@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InertialDampeningSystem : MonoBehaviour
+public class InertialDampeningSystemFancy : MonoBehaviour
 {
     public delegate void CreateSourceAction(GameObject sourceObject, GameObject projectedObject);
     public delegate void RemoveSourceAction(GameObject sourceObject);
@@ -21,9 +21,9 @@ public class InertialDampeningSystem : MonoBehaviour
     private List<GameObject> interiors = null;
 
     private int positionIndex = 0;
-    private IDSExternal _idsExternal = null;
+    private IDSExternalFancy _idsExternal = null;
 
-    public IDSExternal idsExternal
+    public IDSExternalFancy idsExternal
     {
         get { return this._idsExternal; }
     }
@@ -81,8 +81,8 @@ public class InertialDampeningSystem : MonoBehaviour
 
         Destroy(this.triggerZone);
 
-        this._idsExternal = exteriorZone.AddComponent<IDSExternal>();
-        IDSInternal idsInternal = interiorShip.AddComponent<IDSInternal>();
+        this._idsExternal = exteriorZone.AddComponent<IDSExternalFancy>();
+        IDSInternalFancy idsInternal = interiorShip.AddComponent<IDSInternalFancy>();
 
         Rigidbody externalRigidbody = this.GetComponent<Rigidbody>();
 

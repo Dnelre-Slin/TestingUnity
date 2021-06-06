@@ -12,18 +12,18 @@ public class HandlePlayerIDSTransitions : MonoBehaviour
 
     void OnEnable()
     {
-        InertialDampeningSystem.OnCreateSource += this.CreatePlayerSource;
-        InertialDampeningSystem.OnRemoveSource += this.RemovePlayerSource;
-        InertialDampeningSystem.OnTransitionEnter += this.PlayerTransitionEnter;
-        InertialDampeningSystem.OnTransitionExit += this.PlayerTransitionExit;
+        InertialDampeningSystemFancy.OnCreateSource += this.CreatePlayerSource;
+        InertialDampeningSystemFancy.OnRemoveSource += this.RemovePlayerSource;
+        InertialDampeningSystemFancy.OnTransitionEnter += this.PlayerTransitionEnter;
+        InertialDampeningSystemFancy.OnTransitionExit += this.PlayerTransitionExit;
     }
 
     void OnDisable()
     {
-        InertialDampeningSystem.OnCreateSource -= this.CreatePlayerSource;
-        InertialDampeningSystem.OnRemoveSource -= this.RemovePlayerSource;
-        InertialDampeningSystem.OnTransitionEnter -= this.PlayerTransitionEnter;
-        InertialDampeningSystem.OnTransitionExit -= this.PlayerTransitionExit;
+        InertialDampeningSystemFancy.OnCreateSource -= this.CreatePlayerSource;
+        InertialDampeningSystemFancy.OnRemoveSource -= this.RemovePlayerSource;
+        InertialDampeningSystemFancy.OnTransitionEnter -= this.PlayerTransitionEnter;
+        InertialDampeningSystemFancy.OnTransitionExit -= this.PlayerTransitionExit;
     }
 
     // Start is called before the first frame update

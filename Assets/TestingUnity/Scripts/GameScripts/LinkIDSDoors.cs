@@ -12,7 +12,7 @@ public class LinkIDSDoors : MonoBehaviour
         if (idsGameObject != null)
         {
             float precision = 0.1f;
-            IDSExternal idsExternal = idsGameObject.GetComponentInChildren<IDSExternal>();
+            IDSExternalFancy idsExternal = idsGameObject.GetComponentInChildren<IDSExternalFancy>();
             if (idsExternal != null)
             {
                 GameObject interiorObject = idsExternal.idsInternal.gameObject;

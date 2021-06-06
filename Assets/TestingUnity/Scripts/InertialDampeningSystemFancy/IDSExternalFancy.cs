@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IDSExternal : MonoBehaviour
+public class IDSExternalFancy : MonoBehaviour
 {
     [SerializeField]
     private Transform projectionZoneReal = null;
-    private IDSInternal idsInternalReal = null;
+    private IDSInternalFancy idsInternalReal = null;
 
     [SerializeField]
     private float _order = 1f;
@@ -21,13 +21,13 @@ public class IDSExternal : MonoBehaviour
         get { return this.projectionZoneReal; }
     }
 
-    public IDSInternal idsInternal
+    public IDSInternalFancy idsInternal
     {
         get { return this.idsInternalReal; }
         set { this.idsInternalReal = value; }
     }
 
-    public void InitSetup(Transform projectionZone, IDSInternal idsInternal, float order)
+    public void InitSetup(Transform projectionZone, IDSInternalFancy idsInternal, float order)
     {
         this.projectionZoneReal = projectionZone;
         this.idsInternalReal = idsInternal;
@@ -55,7 +55,7 @@ public class IDSExternal : MonoBehaviour
         if (rgbd != null) // Only gameobject with a rigidbody will be handled
         {
             Debug.Log("Entering (" + this + ") : " + collider.gameObject.name);
-            InertialDampeningSystem idsSourceObject = collider.gameObject.GetComponent<InertialDampeningSystem>();
+            InertialDampeningSystemFancy idsSourceObject = collider.gameObject.GetComponent<InertialDampeningSystemFancy>();
             if (idsSourceObject == null)
             {
                 this.idsInternal.SourceObjectEnter(collider.gameObject, rgbd);

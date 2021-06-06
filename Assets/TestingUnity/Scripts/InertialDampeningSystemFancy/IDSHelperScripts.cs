@@ -46,7 +46,7 @@ public static class IDSProjectionCreator
         return projectionComp;
     }
 
-    public static Transform MoveProjectionsEnter(IDSInternal idsInternal, IDSProjection idsProjection)
+    public static Transform MoveProjectionsEnter(IDSInternalFancy idsInternal, IDSProjection idsProjection)
     {
         idsInternal.externalZone.parent = idsInternal.idsExternal.transform;
         GameObject projectionZone = new GameObject(idsInternal.externalZone.name + "_proj");
@@ -61,7 +61,7 @@ public static class IDSProjectionCreator
         return projectionZone.transform;
     }
 
-    public static void MoveProjectionsExit(IDSInternal idsInternal)
+    public static void MoveProjectionsExit(IDSInternalFancy idsInternal)
     {
         foreach (Transform child in idsInternal.projectionZone)
         {
