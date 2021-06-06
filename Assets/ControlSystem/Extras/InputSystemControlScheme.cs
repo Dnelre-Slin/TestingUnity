@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputSystemControlScheme : MonoBehaviour, IControllScheme
+public class InputSystemControlScheme : MonoBehaviour, IControlScheme
 {
     [SerializeField]
     private InputActionAsset actionAsset = null;

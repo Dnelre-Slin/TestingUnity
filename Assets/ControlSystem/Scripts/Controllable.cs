@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(IControllScheme))]
+[RequireComponent(typeof(IControlScheme))]
 public class Controllable : MonoBehaviour, IControllable
 {
     public static event Action<Controllable> OnNewControlled;
@@ -11,7 +11,7 @@ public class Controllable : MonoBehaviour, IControllable
     [SerializeField]
     private Camera playerCamera = null;
     private ControllableManagment controllableManagment = null;
-    private IControllScheme controllScheme = null;
+    private IControlScheme controllScheme = null;
 
     private Controllable next = null;
     private Controllable prev = null;
@@ -25,7 +25,7 @@ public class Controllable : MonoBehaviour, IControllable
     public virtual void Awake()
     {
         this.controllableManagment = GameObject.FindObjectOfType<ControllableManagment>();
-        this.controllScheme = this.GetComponent<IControllScheme>();
+        this.controllScheme = this.GetComponent<IControlScheme>();
     }
 
     // Used to set this controllable as the initial controllable. Should only be called be ControllableManagment
