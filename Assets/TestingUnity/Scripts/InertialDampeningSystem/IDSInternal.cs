@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IDSInternalDirect : MonoBehaviour
+public class IDSInternal : MonoBehaviour
 {
     private Transform externalTransform = null;
     private Rigidbody externalRigidbody = null;

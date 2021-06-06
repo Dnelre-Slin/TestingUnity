@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class InertialDampeningSystemDirect : MonoBehaviour
+public class InertialDampeningSystem : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> externalObjects = new List<GameObject>();
@@ -30,8 +30,8 @@ public class InertialDampeningSystemDirect : MonoBehaviour
         Rigidbody externalRigidbody = this.GetComponent<Rigidbody>();
         Collider[] externalColliders = this.GetComponentsInChildren<Collider>();
 
-        IDSInternalDirect idsInternalDirect = internalObject.AddComponent<IDSInternalDirect>();
-        idsInternalDirect.Setup(this.transform, externalRigidbody, externalColliders, idsDoorUpdater);
+        IDSInternal idsInternal = internalObject.AddComponent<IDSInternal>();
+        idsInternal.Setup(this.transform, externalRigidbody, externalColliders, idsDoorUpdater);
         Rigidbody internalRigidbody = internalObject.AddComponent<Rigidbody>();
         internalRigidbody.isKinematic = true;
     }
