@@ -126,37 +126,29 @@ public class IDSInternalDirect : MonoBehaviour
     void AddObjectToIDS(Rigidbody rigidbody)
     {
         GameObject go = rigidbody.gameObject;
-        Debug.Log("Maxi!!! : " + go.transform.position);
         go.transform.parent = this.transform;
-        Debug.Log("Maxi2!!! : " + go.transform.position);
 
         rigidbody.velocity -= this.externalRigidbody.velocity;
-        // go.transform.position -= this.externalRigidbody.velocity * Time.deltaTime;
         go.transform.position -= this.externalRigidbody.transform.position - this.transform.position;
 
         IDSChildObject childObject = new IDSChildObject(rigidbody);
         this.childObjects[go] = childObject;
         this.IgnoreCollisionWithExternal(childObject.colliders);
-        Debug.Log("Maxi3!!! : " + go.transform.position);
         this.performStackClear = true;
     }
 
     void RemoveObjectFromIDS(Rigidbody rigidbody)
     {
         GameObject go = rigidbody.gameObject;
-        Debug.Log("Rori1!!! : " + go.transform.position);
         // go.transform.parent = this.transform.parent;
         go.transform.parent = null; // Until above is fixed. Needs to be grandparent, or even better, do something smarter
-        Debug.Log("Rori2!!! : " + go.transform.position);
 
         rigidbody.velocity += this.externalRigidbody.velocity;
-        // go.transform.position += rigidbody.velocity * Time.deltaTime;
         go.transform.position += this.externalRigidbody.transform.position - this.transform.position;
 
         IDSChildObject childObject = this.childObjects[go];
         this.IgnoreCollisionWithExternal(childObject.colliders, false); // False to un-ignore
         this.childObjects.Remove(go);
-        Debug.Log("Rori3!!! : " + go.transform.position);
     }
 
     void OnTriggerEnter(Collider collider)

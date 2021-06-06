@@ -4,11 +4,6 @@ using UnityEngine;
 
 public static class CopyColliderHelper
 {
-    // public static BoxCollider CopyBoxCollider(BoxCollider originalCollider, GameObject copyGameObject)
-    // {
-    //     return copyGameObject.AddComponent<BoxCollider>(originalCollider);
-    // }
-
     public static T CopyCollider<T>(T originalCollider, GameObject copyGameObject) where T : Collider
     {
         return copyGameObject.AddComponent<T>(originalCollider);
