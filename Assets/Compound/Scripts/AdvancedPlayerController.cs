@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Controllable), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
-[RequireComponent(typeof(BaseInstigator))]
+[RequireComponent(typeof(BaseInstigator), typeof(AdvancedCharacterController), typeof(AdvancedPlayerCameraController))]
+[RequireComponent(typeof(InputSystemControlScheme))]
 public class AdvancedPlayerController : MonoBehaviour
 {
-    private Controllable controllable;
+    private InputSystemControlScheme controlScheme;
     private AdvancedCharacterController controller;
     private AdvancedPlayerCameraController cameraController;
     private BaseInstigator instigator;
@@ -18,13 +18,13 @@ public class AdvancedPlayerController : MonoBehaviour
         this.cameraController = GetComponent<AdvancedPlayerCameraController>();
         this.instigator = GetComponent<BaseInstigator>();
 
-        this.controllable = GetComponent<Controllable>();
+        this.controlScheme = GetComponent<InputSystemControlScheme>();
 
-        this.controllable.AddActionMap("Player");
-        this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
-        this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
-        this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
-        this.controllable.AddAction("Player", "Interact", ActionTypeHandler.ActionType.Performed, OnInteract);
+        this.controlScheme.AddActionMap("Player");
+        this.controlScheme.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
+        this.controlScheme.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
+        this.controlScheme.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controlScheme.AddAction("Player", "Interact", ActionTypeHandler.ActionType.Performed, OnInteract);
     }
 
     public void OnLook(InputAction.CallbackContext context)

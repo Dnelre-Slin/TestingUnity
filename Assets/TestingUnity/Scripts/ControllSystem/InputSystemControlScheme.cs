@@ -1,32 +1,39 @@
-﻿using System;
+﻿#if (ENABLE_INPUT_SYSTEM)
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputSystemControlScheme : IControllScheme
+public class InputSystemControlScheme : MonoBehaviour, IControllScheme
 {
+    [SerializeField]
+    private InputActionAsset actionAsset = null;
+
     private Dictionary<string, InputActionMap> actionMapDict = new Dictionary<string, InputActionMap>();
     private Dictionary<string, InputAction> actionDict = new Dictionary<string, InputAction>();
     private Dictionary<string, Action<InputAction.CallbackContext>> actionSubscriptions = new Dictionary<string, Action<InputAction.CallbackContext>>();
 
-    private bool _enabled = false;
-    public bool enabled
+    private bool _controlsEnabled = false;
+    public bool controlsEnabled
     {
-        get { return this._enabled; }
+        get { return this._controlsEnabled; }
     }
 
-    public void AddActionMap(InputActionAsset actionAsset, string map)
+    public void AddActionMap(string map)
     {
-        InputActionMap actionMap = actionAsset.FindActionMap(map);
-        this.actionMapDict[map] = actionMap;
+        if (this.actionAsset != null)
+        {
+            InputActionMap actionMap = this.actionAsset.FindActionMap(map);
+            this.actionMapDict[map] = actionMap;
+        }
     }
 
-    public void AddAction(InputActionAsset actionAsset, string map, string action, ActionTypeHandler.ActionType actionType, Action<InputAction.CallbackContext> callback)
+    public void AddAction(string map, string action, ActionTypeHandler.ActionType actionType, Action<InputAction.CallbackContext> callback)
     {
         if (!this.actionMapDict.ContainsKey(map))
         {
-            AddActionMap(actionAsset, map);
+            AddActionMap(map);
         }
         if (!this.actionDict.ContainsKey(action))
         {
@@ -35,21 +42,21 @@ public class InputSystemControlScheme : IControllScheme
         }
         if (ActionTypeHandler.IsStarted(actionType))
         {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.enabled) { callback(ctx); } };
+            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.controlsEnabled) { callback(ctx); } };
             this.actionDict[action].started += useCallback;
             string subKey = map + action + ActionTypeHandler.ActionType.Started;
             this.actionSubscriptions[subKey] = useCallback;
         }
         if (ActionTypeHandler.IsPerformed(actionType))
         {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.enabled) { callback(ctx); } };
+            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.controlsEnabled) { callback(ctx); } };
             this.actionDict[action].performed += useCallback;
             string subKey = map + action + ActionTypeHandler.ActionType.Performed;
             this.actionSubscriptions[subKey] = useCallback;
         }
         if (ActionTypeHandler.IsCanceled(actionType))
         {
-            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.enabled) { callback(ctx); } };
+            Action<InputAction.CallbackContext> useCallback = ctx => { if (this.controlsEnabled) { callback(ctx); } };
             this.actionDict[action].canceled += useCallback;
             string subKey = map + action + ActionTypeHandler.ActionType.Canceled;
             this.actionSubscriptions[subKey] = useCallback;
@@ -80,7 +87,7 @@ public class InputSystemControlScheme : IControllScheme
 
     public void Enable()
     {
-        this._enabled = true;
+        this._controlsEnabled = true;
         foreach (var actionMap in this.actionMapDict.Values)
         {
             actionMap.Enable();
@@ -89,10 +96,11 @@ public class InputSystemControlScheme : IControllScheme
 
     public void Disable()
     {
-        this._enabled = false;
+        this._controlsEnabled = false;
         foreach (var actionMap in this.actionMapDict.Values)
         {
             actionMap.Disable();
         }
     }
 }
+#endif

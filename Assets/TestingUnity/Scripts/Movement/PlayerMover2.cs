@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(Controllable))]
+[RequireComponent(typeof(CharacterController), typeof(InputSystemControlScheme))]
 public class PlayerMover2 : MonoBehaviour
 {
     private CharacterController controller;
-    private Controllable controllable;
+    private InputSystemControlScheme controlScheme;
 
     // [SerializeField]
     // private float groundedDownSpeed = 2f;
@@ -46,12 +45,12 @@ public class PlayerMover2 : MonoBehaviour
 
         this.playerCamera = GetComponentInChildren<Camera>();
 
-        this.controllable = GetComponent<Controllable>();
+        this.controlScheme = GetComponent<InputSystemControlScheme>();
 
-        this.controllable.AddActionMap("Player");
-        this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
-        this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
-        this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controlScheme.AddActionMap("Player");
+        this.controlScheme.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
+        this.controlScheme.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
+        this.controlScheme.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
 
         // this.transform.SetParent(this.spaceship.transform);
         // ParentConstraint parentConstraint = this.gameObject.AddComponent<ParentConstraint>();

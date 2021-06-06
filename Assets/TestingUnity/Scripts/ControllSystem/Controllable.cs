@@ -2,83 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if (ENABLE_INPUT_SYSTEM)
-using UnityEngine.InputSystem;
-#endif
 
+[RequireComponent(typeof(IControllScheme))]
 public class Controllable : MonoBehaviour, IControllable
 {
     public static event Action<Controllable> OnNewControlled;
 
-    #if (ENABLE_INPUT_SYSTEM)
-    [SerializeField]
-    private InputActionAsset actionAsset = null;
-    #endif
     [SerializeField]
     private Camera playerCamera = null;
-
     private ControllableManagment controllableManagment = null;
+    private IControllScheme controllScheme = null;
 
-    private PossessionSystem possessionSystem = null;
-    private InputSystemControlScheme inputSystemControlScheme = null;
+    private Controllable next = null;
+    private Controllable prev = null;
 
+    private bool _isControlled = false;
     public bool isControlled
     {
-        get { return this.possessionSystem.isControlled; }
+        get { return this._isControlled; }
     }
 
-    void Awake()
+    public virtual void Awake()
     {
         this.controllableManagment = GameObject.FindObjectOfType<ControllableManagment>();
-        this.inputSystemControlScheme = new InputSystemControlScheme();
-        this.possessionSystem = new PossessionSystem(this.controllableManagment, this.playerCamera, this.inputSystemControlScheme, this.OnNewControlledCallback);
-    }
-
-    public void AddActionMap(string map)
-    {
-        #if (ENABLE_INPUT_SYSTEM)
-        if (this.actionAsset != null)
-        {
-            this.inputSystemControlScheme.AddActionMap(actionAsset, map);
-        }
-        #elif (ENABLE_LEGACY_INPUT_MANAGER)
-        throw new UnityException("AddActionMap can only be used with new InputSystem");
-        #endif
-    }
-
-    public void AddAction(string map, string action, ActionTypeHandler.ActionType actionType, Action<InputAction.CallbackContext> callback)
-    {
-        #if (ENABLE_INPUT_SYSTEM)
-        if (this.actionAsset != null)
-        {
-            this.inputSystemControlScheme.AddAction(actionAsset, map, action, actionType, callback);
-        }
-        #elif (ENABLE_LEGACY_INPUT_MANAGER)
-        throw new UnityException("AddAction can only be used with new InputSystem");
-        #endif
-    }
-
-    public void RemoveAction(string map, string action, ActionTypeHandler.ActionType actionType)
-    {
-        #if (ENABLE_INPUT_SYSTEM)
-        if (this.actionAsset != null)
-        {
-            this.inputSystemControlScheme.RemoveAction(map, action, actionType);
-        }
-        #elif (ENABLE_LEGACY_INPUT_MANAGER)
-        throw new UnityException("RemoveAction can only be used with new InputSystem");
-        #endif
-    }
-
-    private void OnNewControlledCallback(PossessionSystem possessionSystem)
-    {
-        OnNewControlled(this);
+        this.controllScheme = this.GetComponent<IControllScheme>();
     }
 
     // Used to set this controllable as the initial controllable. Should only be called be ControllableManagment
     public void InitControll()
     {
-        this.possessionSystem.InitControll();
+        this.Controll();
     }
 
     public void AquirePossession()
@@ -92,17 +45,88 @@ public class Controllable : MonoBehaviour, IControllable
 
     public void Possess(IControllable newNext)
     {
-        this.possessionSystem.Possess(((Controllable)newNext).possessionSystem);
+        Controllable nextControllable = (Controllable)newNext;
+        if (nextControllable == this)
+        {
+            throw new ArgumentException("Cannot possess itself");
+        }
+        if (this.next != null)
+        {
+            throw new UnityException("Not the head of a possesion chain");
+        }
+        this.next = nextControllable;
+        this.UnControll();
+        nextControllable.HandlePossess(this);
+    }
+
+    private void HandlePossess(Controllable newPrev)
+    {
+        if (this.prev != null || this.next != null)
+        {
+            throw new UnityException("Already in a possesion chain");
+        }
+        this.prev = newPrev;
+        this.Controll();
     }
 
     public void Unpossess()
     {
-        this.possessionSystem.Unpossess();
+        if (this.next != null)
+        {
+            throw new UnityException("Not the head of a possesion chain");
+        }
+        if (this.prev == null)
+        {
+            throw new UnityException("Cannot unpossess root chain node");
+        }
+        this.UnControll();
+        this.prev.HandleUnPossess();
+        this.prev = null;
+    }
+
+    private void HandleUnPossess()
+    {
+        if (this.next == null)
+        {
+            throw new UnityException("Control returned to a node that does not have a child");
+        }
+        this.next = null;
+        this.Controll();
+    }
+
+    private void Controll()
+    {
+        if (!this.isControlled)
+        {
+            if (this.playerCamera != null)
+            {
+                this.playerCamera.enabled = true;
+            }
+
+            this.controllScheme.Enable();
+
+            this._isControlled = true;
+            OnNewControlled(this);
+        }
+    }
+
+    private void UnControll()
+    {
+        if (this.isControlled)
+        {
+            this._isControlled = false;
+
+            this.controllScheme.Disable();
+
+            if (this.playerCamera != null)
+            {
+                this.playerCamera.enabled = false;
+            }
+        }
     }
 
     public void SetPlayerCamera(Camera newPlayerCamera)
     {
         this.playerCamera = newPlayerCamera;
-        this.possessionSystem.SetPlayerCamera(newPlayerCamera);
     }
 }

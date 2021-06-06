@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Controllable))]
+[RequireComponent(typeof(Rigidbody), typeof(InputSystemControlScheme), typeof(Controllable))]
 public class SpaceshipController : MonoBehaviour
 {
     private Controllable controllable;
+    private InputSystemControlScheme controlScheme;
     private Rigidbody rgbd;
 
     private Vector3 thrustVelocity;
@@ -27,14 +27,15 @@ public class SpaceshipController : MonoBehaviour
         rgbd = GetComponent<Rigidbody>();
 
         this.controllable = GetComponent<Controllable>();
+        this.controlScheme = GetComponent<InputSystemControlScheme>();
 
-        this.controllable.AddActionMap("Spaceship");
-        this.controllable.AddAction("Spaceship", "ThrustForward", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustForward);
-        this.controllable.AddAction("Spaceship", "ThrustRight", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustRight);
-        this.controllable.AddAction("Spaceship", "ThrustUp", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustUp);
-        this.controllable.AddAction("Spaceship", "TurnPitchYaw", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnPitchYaw);
-        this.controllable.AddAction("Spaceship", "TurnRoll", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnRoll);
-        this.controllable.AddAction("Spaceship", "ExitVehicle", ActionTypeHandler.ActionType.Performed, OnExitVehicle);
+        this.controlScheme.AddActionMap("Spaceship");
+        this.controlScheme.AddAction("Spaceship", "ThrustForward", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustForward);
+        this.controlScheme.AddAction("Spaceship", "ThrustRight", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustRight);
+        this.controlScheme.AddAction("Spaceship", "ThrustUp", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnThrustUp);
+        this.controlScheme.AddAction("Spaceship", "TurnPitchYaw", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnPitchYaw);
+        this.controlScheme.AddAction("Spaceship", "TurnRoll", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnTurnRoll);
+        this.controlScheme.AddAction("Spaceship", "ExitVehicle", ActionTypeHandler.ActionType.Performed, OnExitVehicle);
 
     }
 

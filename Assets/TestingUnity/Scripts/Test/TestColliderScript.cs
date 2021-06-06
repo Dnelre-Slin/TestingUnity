@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Controllable))]
-[RequireComponent(typeof(BaseGravityConsumer))]
+[RequireComponent(typeof(InputSystemControlScheme), typeof(BaseGravityConsumer))]
 public class TestColliderScript : MonoBehaviour
 {
     // private CapsuleCollider capsuleCollider;
     private Rigidbody rgbd;
-    private Controllable controllable;
+    private InputSystemControlScheme controlScheme;
     // private Vector3 moveDir = Vector3.zero;
     public float moveSpeed = 5f;
     public float slopeAngle = 65f;
@@ -41,11 +40,11 @@ public class TestColliderScript : MonoBehaviour
         this.gravityConsumer = GetComponent<BaseGravityConsumer>();
         this.playerCamera = GetComponentInChildren<Camera>();
 
-        this.controllable = GetComponent<Controllable>();
-        this.controllable.AddActionMap("Player");
-        this.controllable.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
-        this.controllable.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
-        this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controlScheme = GetComponent<InputSystemControlScheme>();
+        this.controlScheme.AddActionMap("Player");
+        this.controlScheme.AddAction("Player", "Move", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnMove);
+        this.controlScheme.AddAction("Player", "Look", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, OnLook);
+        this.controlScheme.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
 
     }
 

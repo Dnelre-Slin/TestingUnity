@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Controllable))]
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(InputSystemControlScheme), typeof(CharacterController))]
 public class PlayerGravity : MonoBehaviour
 {
-    private Controllable controllable;
+    private InputSystemControlScheme controlScheme;
 
     [SerializeField]
     private bool useGravity = false;
@@ -24,11 +23,11 @@ public class PlayerGravity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.controllable = GetComponent<Controllable>();
+        this.controlScheme = GetComponent<InputSystemControlScheme>();
         this.characterController = GetComponent<CharacterController>();
 
-        this.controllable.AddActionMap("Player");
-        this.controllable.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
+        this.controlScheme.AddActionMap("Player");
+        this.controlScheme.AddAction("Player", "Jump", ActionTypeHandler.ActionType.Performed, OnJump);
 
         this.jumpVector = -Mathf.Sqrt(this.jumpHeight * 2f * this.gravityVector.magnitude) * this.gravityVector.normalized;
     }
