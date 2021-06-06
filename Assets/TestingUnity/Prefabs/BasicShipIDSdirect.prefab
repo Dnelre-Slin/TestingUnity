@@ -57,10 +57,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24896ae271d7ab47bcf624793d46035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3314949800285675619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932627450016625007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadb04b47f922894f8851c9a59ea9709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   thurstSpeeds: {x: 100, y: 100, z: 100}
   pitchYawSensitivity: 10
   rollSensitivity: 40
---- !u!114 &8810475221121799759
+--- !u!114 &1057480936504079172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 4514322122153511297, guid: 823415885cc445448868c1e893eedc8a, type: 3}
       propertyPath: baseReactable
       value: 
-      objectReference: {fileID: 8810475221121799759}
+      objectReference: {fileID: 1057480936504079172}
     - target: {fileID: 5019757621391973357, guid: 823415885cc445448868c1e893eedc8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
