@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if (ENABLE_INPUT_SYSTEM)
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,3 +45,4 @@ public class AdvancedPlayerController : MonoBehaviour
         this.instigator.Instigate();
     }
 }
+#endif

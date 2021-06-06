@@ -9,8 +9,6 @@ public class HideInteractionTextOnUnpossess : MonoBehaviour
     [SerializeField]
     BaseInstigator instigator = null;
 
-    ControllableManager controllableManager = null;
-
     void Awake()
     {
         this.controllable = this.GetComponent<Controllable>();
