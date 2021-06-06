@@ -18,9 +18,9 @@ public class SpaceshipControllerSimplified : MonoBehaviour
     [SerializeField]
     private string inputMouseYAxis = "Mouse Y";
     [SerializeField]
-    private string inputThrustUp = "space";
+    private string inputThrustUpwards = "space";
     [SerializeField]
-    private string inputThrustDown = "ctrl";
+    private string inputThrustDownwards = "left ctrl";
     [SerializeField]
     private string inputRollRight = "e";
     [SerializeField]
@@ -75,40 +75,56 @@ public class SpaceshipControllerSimplified : MonoBehaviour
         if (this.inputHorizontalAxis != "" && this.inputVerticalAxis != "")
         {
             Vector2 thrustForwardRight = new Vector2(Input.GetAxisRaw(this.inputHorizontalAxis), Input.GetAxisRaw(this.inputVerticalAxis));
-            this.spaceship.OnThrustForward(thrustForwardRight.x);
-            this.spaceship.OnThrustRight(thrustForwardRight.y);
+            this.spaceship.OnThrustForward(thrustForwardRight.y);
+            this.spaceship.OnThrustRight(thrustForwardRight.x);
         }
         if (this.inputMouseXAxis != "" && this.inputMouseYAxis != "")
         {
             Vector2 turnPitchYaw = new Vector2(Input.GetAxisRaw(this.inputMouseXAxis), Input.GetAxisRaw(this.inputMouseYAxis));
             this.spaceship.OnTurnPitchYaw(turnPitchYaw);
         }
-        if (this.inputThrustUp != "")
+        if (this.inputThrustUpwards != "")
         {
-            if (Input.GetKeyDown(this.inputThrustUp))
+            if (Input.GetKeyDown(this.inputThrustUpwards))
             {
                 this.spaceship.OnThrustUp(1.0f);
             }
+            else if (Input.GetKeyUp(this.inputThrustUpwards))
+            {
+                this.spaceship.OnThrustUp(0.0f);
+            }
         }
-        if (this.inputThrustDown != "")
+        if (this.inputThrustDownwards != "")
         {
-            if (Input.GetKeyDown(this.inputThrustDown))
+            if (Input.GetKeyDown(this.inputThrustDownwards))
             {
                 this.spaceship.OnThrustUp(-1.0f);
+            }
+            else if (Input.GetKeyUp(this.inputThrustDownwards))
+            {
+                this.spaceship.OnThrustUp(0.0f);
             }
         }
         if (this.inputRollRight != "")
         {
             if (Input.GetKeyDown(this.inputRollRight))
             {
-                this.spaceship.OnTurnRoll(1.0f);
+                this.spaceship.OnTurnRoll(-1.0f);
+            }
+            else if (Input.GetKeyUp(this.inputRollRight))
+            {
+                this.spaceship.OnTurnRoll(0.0f);
             }
         }
         if (this.inputRollLeft != "")
         {
             if (Input.GetKeyDown(this.inputRollLeft))
             {
-                this.spaceship.OnTurnRoll(-1.0f);
+                this.spaceship.OnTurnRoll(1.0f);
+            }
+            else if (Input.GetKeyUp(this.inputRollLeft))
+            {
+                this.spaceship.OnTurnRoll(0.0f);
             }
         }
     }
