@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Spaceship : MonoBehaviour
@@ -33,26 +32,28 @@ public class Spaceship : MonoBehaviour
         HandleTurn();
     }
 
-    public void OnThrustForward(InputAction.CallbackContext context)
+    public void OnThrustForward(float thrust)
     {
-        this.thrustVelocity.z = context.ReadValue<float>();
+        this.thrustVelocity.z = thrust;
     }
-    public void OnThrustRight(InputAction.CallbackContext context)
+    public void OnThrustRight(float thrust)
     {
-        this.thrustVelocity.x = context.ReadValue<float>();
+        this.thrustVelocity.x = thrust;
     }
-    public void OnThrustUp(InputAction.CallbackContext context)
+    public void OnThrustUp(float thrust)
     {
-        this.thrustVelocity.y = context.ReadValue<float>();
+        this.thrustVelocity.y = thrust;
+        // this.thrustVelocity.y = context.ReadValue<float>();
     }
-    public void OnTurnPitchYaw(InputAction.CallbackContext context)
+    public void OnTurnPitchYaw(Vector2 pitchYaw)
     {
-        Vector2 input = context.ReadValue<Vector2>();
+        Vector2 input = pitchYaw;
+        // Vector2 input = context.ReadValue<Vector2>();
         this.turnVelocity = new Vector3(-input.y * this.pitchYawSensitivity, input.x * this.pitchYawSensitivity, this.turnVelocity.z);
     }
-    public void OnTurnRoll(InputAction.CallbackContext context)
+    public void OnTurnRoll(float roll)
     {
-        this.turnVelocity.z = -context.ReadValue<float>() * this.rollSensitivity;
+        this.turnVelocity.z = roll * this.rollSensitivity;
     }
 
     public void OnFullStop()

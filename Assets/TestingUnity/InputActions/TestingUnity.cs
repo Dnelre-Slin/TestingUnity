@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputActions/TestingUnity.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/TestingUnity/InputActions/TestingUnity.inputactions'
 
 using System;
 using System.Collections;
@@ -975,7 +975,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
+                    ""name"": ""positive"",
                     ""id"": ""ad1422af-9b85-4070-bd30-53acbee7a9bd"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
@@ -986,7 +986,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
+                    ""name"": ""negative"",
                     ""id"": ""f7778c6c-4078-4fe5-b63c-f028f36fc188"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
