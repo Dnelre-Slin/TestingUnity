@@ -154,7 +154,7 @@ public class IDSInternal : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         Rigidbody colRgbd = collider.GetComponentInParent<Rigidbody>();
-        if (colRgbd != null && colRgbd != externalRigidbody)
+        if (colRgbd != null && !colRgbd.isKinematic && colRgbd != externalRigidbody)
         {
             // Dock to IDS system
             this.AddObjectToIDS(colRgbd);
