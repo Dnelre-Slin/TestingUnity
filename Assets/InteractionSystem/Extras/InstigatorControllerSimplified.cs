@@ -41,7 +41,7 @@ public class InstigatorControllerSimplified : MonoBehaviour
         {
             if (Input.GetKeyDown(this.inputInteract))
             {
-                this.Instigate();
+                this.instigator.Instigate();
             }
         }
     }
