@@ -5896,7 +5896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2418815530743741027, guid: ea0de6a54bce16b4fade3cbf33001388, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6518733108668266491, guid: ea0de6a54bce16b4fade3cbf33001388, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8062,6 +8062,10 @@ PrefabInstance:
     - target: {fileID: 4042387172690827744, guid: 25cfd7c52c3bb2d4fb8f12368c9cc79c, type: 3}
       propertyPath: m_Name
       value: SimpleBoxSpaceship
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042387172690827744, guid: 25cfd7c52c3bb2d4fb8f12368c9cc79c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4042387172690827751, guid: 25cfd7c52c3bb2d4fb8f12368c9cc79c, type: 3}
       propertyPath: m_LocalPosition.x
