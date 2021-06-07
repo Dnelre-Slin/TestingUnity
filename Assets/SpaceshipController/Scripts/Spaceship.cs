@@ -17,7 +17,6 @@ public class Spaceship : MonoBehaviour
 
     private Rigidbody rgbd;
     private Vector3 thrustInputVelocity = Vector3.zero;
-    private Vector3 thrustCurrentVelocity = Vector3.zero;
     private Vector3 turnVelocity = Vector3.zero;
 
     void Start()
@@ -68,9 +67,9 @@ public class Spaceship : MonoBehaviour
     {
         Vector3 desiredVelocity = this.transform.TransformDirection(Vector3.Scale(this.thrustInputVelocity, this.maxThurstSpeeds));
 
-        this.thrustCurrentVelocity = VectorCalculations.GradualVector3Change(this.thrustCurrentVelocity, desiredVelocity, this.thrustAcceleration);
+        Vector3 currentVelocity = VectorCalculations.GradualVector3Change(this.rgbd.velocity / Time.fixedDeltaTime, desiredVelocity, this.thrustAcceleration);
 
-        this.rgbd.velocity = this.thrustCurrentVelocity * Time.fixedDeltaTime;
+        this.rgbd.velocity = currentVelocity * Time.fixedDeltaTime;
     }
 
     void HandleTurn()
