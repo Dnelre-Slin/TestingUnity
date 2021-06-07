@@ -262,7 +262,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &712842931
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -894,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.68
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalPosition.z
@@ -902,19 +902,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_RootOrder
@@ -930,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348564721794966647, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5132010946665864931, guid: fc999fc05ef8f464c977c51361962a15, type: 3}
       propertyPath: interactText
