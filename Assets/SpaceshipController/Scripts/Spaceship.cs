@@ -6,6 +6,8 @@ using UnityEngine;
 public class Spaceship : MonoBehaviour
 {
     [SerializeField]
+    private SpeedIndicatorUI speedIndicatorUI = null;
+    [SerializeField]
     private Vector3 maxThurstSpeeds = new Vector3(100f, 100f, 100f);
     [SerializeField]
     private Vector3 thrustAcceleration = new Vector3(10f, 10f, 10f);
@@ -43,6 +45,7 @@ public class Spaceship : MonoBehaviour
     {
         HandleUpdateMainThrustSpeed();
         HandleTurn();
+        HandleUiUpdates();
     }
 
     public void OnThrustForward(float thrust)
@@ -116,6 +119,17 @@ public class Spaceship : MonoBehaviour
         {
             this.desiredMainThrustSpeed += this.mainThrustSpeedAcceleration * this.thrustInputVelocity.z;
             this.desiredMainThrustSpeed = Mathf.Clamp(this.desiredMainThrustSpeed, this.mainThrustMinSpeed, this.mainThrustMaxSpeed);
+        }
+    }
+
+    void HandleUiUpdates()
+    {
+        if (this.speedIndicatorUI != null)
+        {
+            float currentSpeed = this.rgbd.velocity.magnitude / Time.fixedDeltaTime;
+            this.speedIndicatorUI.SetCurrentMainThrustSpeedIndicator(FloatMathFunctions.NormalizeFloat01(currentSpeed, this.mainThrustMinSpeed, this.mainThrustMaxSpeed));
+            this.speedIndicatorUI.SetDesiredMainThrustSpeedIndicator(FloatMathFunctions.NormalizeFloat01(this.desiredMainThrustSpeed, this.mainThrustMinSpeed, this.mainThrustMaxSpeed));
+            this.speedIndicatorUI.SetNumberIndicator(currentSpeed);
         }
     }
 
