@@ -18,6 +18,9 @@ public class AdvancedCharacterController : MonoBehaviour
     private float jumpMove = 0.03f;
     [SerializeField]
     private Vector3 defaultGravity = new Vector3(0f, -9.81f, 0f);
+    [SerializeField]
+    [Range(0.0f, 1.0f)]
+    private float rotateToGravitySpeed = 0.1f;
 
     private Vector3 groundNormal = Vector3.zero;
     private bool isGrounded = false;
@@ -59,7 +62,7 @@ public class AdvancedCharacterController : MonoBehaviour
         Vector3 gravity = this.GetGravity();
         Vector3 gravityNormalized = gravity.normalized;
         Quaternion q = Quaternion.FromToRotation(this.transform.up, -gravity.normalized);
-        this.transform.rotation = q * this.transform.rotation;
+        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, q * this.transform.rotation, this.rotateToGravitySpeed);
 
         Vector3 gravityVelocity = gravityNormalized *  Vector3.Dot(gravityNormalized, this.rgbd.velocity);
 
