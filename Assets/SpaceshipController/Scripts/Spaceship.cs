@@ -80,7 +80,12 @@ public class Spaceship : MonoBehaviour
         this.desiredMainThrustSpeed = desiredMainThrustSpeed;
     }
 
-    public void OnFullStop()
+    public void ZeroMainThrustSpeed()
+    {
+        this.desiredMainThrustSpeed = 0.0f;
+    }
+
+    public void ClearInputs()
     {
         this.thrustInputVelocity = Vector3.zero;
         this.turnVelocity = Vector3.zero;
@@ -110,6 +115,7 @@ public class Spaceship : MonoBehaviour
         if (!this.landingModeActive)
         {
             this.desiredMainThrustSpeed += this.mainThrustSpeedAcceleration * this.thrustInputVelocity.z;
+            this.desiredMainThrustSpeed = Mathf.Clamp(this.desiredMainThrustSpeed, this.mainThrustMinSpeed, this.mainThrustMaxSpeed);
         }
     }
 

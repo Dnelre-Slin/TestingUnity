@@ -25,13 +25,14 @@ public class SpaceshipController : MonoBehaviour
         this.controlScheme.AddAction("Spaceship", "TurnPitchYaw", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, ctx => this.spaceship.OnTurnPitchYaw(ctx.ReadValue<Vector2>()));
         this.controlScheme.AddAction("Spaceship", "TurnRoll", ActionTypeHandler.ActionType.Performed | ActionTypeHandler.ActionType.Canceled, ctx => this.spaceship.OnTurnRoll(ctx.ReadValue<float>()));
         this.controlScheme.AddAction("Spaceship", "ToggleLandingMode", ActionTypeHandler.ActionType.Performed, ctx => this.spaceship.ToggleLandingMode());
+        this.controlScheme.AddAction("Spaceship", "ZeroMainThrustSpeed", ActionTypeHandler.ActionType.Performed, ctx => this.spaceship.ZeroMainThrustSpeed());
         this.controlScheme.AddAction("Spaceship", "ExitVehicle", ActionTypeHandler.ActionType.Performed, OnExitVehicle);
     }
 
     public void OnExitVehicle(InputAction.CallbackContext context)
     {
         this.controllable.Unpossess();
-        this.spaceship.OnFullStop(); // Consider moving this to a controllable subscription.
+        this.spaceship.ClearInputs(); // Consider moving this to a controllable subscription.
     }
 }
 

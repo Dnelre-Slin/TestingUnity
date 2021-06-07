@@ -869,6 +869,14 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ZeroMainThrustSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""07b9b944-0d5a-4ed7-87c8-b4a7a6130596"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1036,6 +1044,17 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""action"": ""ToggleLandingMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8203646f-8163-4fe5-b838-9d68f7766d05"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZeroMainThrustSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1131,6 +1150,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         m_Spaceship_TurnRoll = m_Spaceship.FindAction("TurnRoll", throwIfNotFound: true);
         m_Spaceship_ExitVehicle = m_Spaceship.FindAction("ExitVehicle", throwIfNotFound: true);
         m_Spaceship_ToggleLandingMode = m_Spaceship.FindAction("ToggleLandingMode", throwIfNotFound: true);
+        m_Spaceship_ZeroMainThrustSpeed = m_Spaceship.FindAction("ZeroMainThrustSpeed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1357,6 +1377,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
     private readonly InputAction m_Spaceship_TurnRoll;
     private readonly InputAction m_Spaceship_ExitVehicle;
     private readonly InputAction m_Spaceship_ToggleLandingMode;
+    private readonly InputAction m_Spaceship_ZeroMainThrustSpeed;
     public struct SpaceshipActions
     {
         private @TestingUnity m_Wrapper;
@@ -1368,6 +1389,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         public InputAction @TurnRoll => m_Wrapper.m_Spaceship_TurnRoll;
         public InputAction @ExitVehicle => m_Wrapper.m_Spaceship_ExitVehicle;
         public InputAction @ToggleLandingMode => m_Wrapper.m_Spaceship_ToggleLandingMode;
+        public InputAction @ZeroMainThrustSpeed => m_Wrapper.m_Spaceship_ZeroMainThrustSpeed;
         public InputActionMap Get() { return m_Wrapper.m_Spaceship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1398,6 +1420,9 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                 @ToggleLandingMode.started -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
                 @ToggleLandingMode.performed -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
                 @ToggleLandingMode.canceled -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
+                @ZeroMainThrustSpeed.started -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnZeroMainThrustSpeed;
+                @ZeroMainThrustSpeed.performed -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnZeroMainThrustSpeed;
+                @ZeroMainThrustSpeed.canceled -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnZeroMainThrustSpeed;
             }
             m_Wrapper.m_SpaceshipActionsCallbackInterface = instance;
             if (instance != null)
@@ -1423,6 +1448,9 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                 @ToggleLandingMode.started += instance.OnToggleLandingMode;
                 @ToggleLandingMode.performed += instance.OnToggleLandingMode;
                 @ToggleLandingMode.canceled += instance.OnToggleLandingMode;
+                @ZeroMainThrustSpeed.started += instance.OnZeroMainThrustSpeed;
+                @ZeroMainThrustSpeed.performed += instance.OnZeroMainThrustSpeed;
+                @ZeroMainThrustSpeed.canceled += instance.OnZeroMainThrustSpeed;
             }
         }
     }
@@ -1502,5 +1530,6 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         void OnTurnRoll(InputAction.CallbackContext context);
         void OnExitVehicle(InputAction.CallbackContext context);
         void OnToggleLandingMode(InputAction.CallbackContext context);
+        void OnZeroMainThrustSpeed(InputAction.CallbackContext context);
     }
 }

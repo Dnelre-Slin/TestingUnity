@@ -856,6 +856,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ZeroMainThrustSpeed",
+                    "type": "Button",
+                    "id": "07b9b944-0d5a-4ed7-87c8-b4a7a6130596",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1021,6 +1029,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleLandingMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8203646f-8163-4fe5-b838-9d68f7766d05",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ZeroMainThrustSpeed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
