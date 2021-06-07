@@ -5,10 +5,10 @@ using UnityEngine;
 public class TestHeirarchy : MonoBehaviour
 {
     private Rigidbody rgbd;
-    [SerializeField]
-    private Transform parent = null;
-    [SerializeField]
-    private Transform child = null;
+    // [SerializeField]
+    // private Transform parent = null;
+    // [SerializeField]
+    // private Transform child = null;
     public bool flip = false;
     // Start is called before the first frame update
     void Start()

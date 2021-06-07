@@ -5,23 +5,23 @@ using UnityEngine;
 public class TestRotations : MonoBehaviour
 {
     [SerializeField]
-    private Transform target;
+    private Transform target = null;
     [SerializeField]
-    private Transform barrel;
-    [SerializeField]
-    private float minAngle = -170f;
-    [SerializeField]
-    private float maxAngle = 170f;
-    [SerializeField]
-    private float deltaAngle = 0.1f;
-    [SerializeField]
-    private float minAngleBarrel = -20f;
-    [SerializeField]
-    private float maxAngleBarrel = 90f;
-    [SerializeField]
-    private float deltaAngleBarrel = 0.1f;
-    [SerializeField]
-    private bool idleOnOutOfBounds = false;
+    private Transform barrel = null;
+    // [SerializeField]
+    // private float minAngle = -170f;
+    // [SerializeField]
+    // private float maxAngle = 170f;
+    // [SerializeField]
+    // private float deltaAngle = 0.1f;
+    // [SerializeField]
+    // private float minAngleBarrel = -20f;
+    // [SerializeField]
+    // private float maxAngleBarrel = 90f;
+    // [SerializeField]
+    // private float deltaAngleBarrel = 0.1f;
+    // [SerializeField]
+    // private bool idleOnOutOfBounds = false;
     // Start is called before the first frame update
     void Start()
     {
