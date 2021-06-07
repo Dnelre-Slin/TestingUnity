@@ -6,7 +6,9 @@ using UnityEngine;
 public class Spaceship : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 thurstSpeeds = new Vector3(100f, 100f, 100f);
+    private Vector3 maxThurstSpeeds = new Vector3(100f, 100f, 100f);
+    [SerializeField]
+    private Vector3 thrustAcceleration = new Vector3(10f, 10f, 10f);
 
     [SerializeField]
     private float pitchYawSensitivity = 10f;
@@ -14,9 +16,9 @@ public class Spaceship : MonoBehaviour
     private float rollSensitivity = 40f;
 
     private Rigidbody rgbd;
-    private Vector3 thrustVelocity;
-    private Vector3 turnVelocity;
-
+    private Vector3 thrustInputVelocity = Vector3.zero;
+    private Vector3 thrustCurrentVelocity = Vector3.zero;
+    private Vector3 turnVelocity = Vector3.zero;
 
     void Start()
     {
@@ -34,15 +36,15 @@ public class Spaceship : MonoBehaviour
 
     public void OnThrustForward(float thrust)
     {
-        this.thrustVelocity.z = thrust;
+        this.thrustInputVelocity.z = thrust;
     }
     public void OnThrustRight(float thrust)
     {
-        this.thrustVelocity.x = thrust;
+        this.thrustInputVelocity.x = thrust;
     }
     public void OnThrustUp(float thrust)
     {
-        this.thrustVelocity.y = thrust;
+        this.thrustInputVelocity.y = thrust;
         // this.thrustVelocity.y = context.ReadValue<float>();
     }
     public void OnTurnPitchYaw(Vector2 pitchYaw)
@@ -58,17 +60,22 @@ public class Spaceship : MonoBehaviour
 
     public void OnFullStop()
     {
-        this.thrustVelocity = Vector3.zero;
+        this.thrustInputVelocity = Vector3.zero;
         this.turnVelocity = Vector3.zero;
     }
 
     void HandleThrust()
     {
-        this.rgbd.velocity = this.transform.TransformDirection(Vector3.Scale(this.thrustVelocity, this.thurstSpeeds) * Time.fixedDeltaTime);
+        Vector3 desiredVelocity = this.transform.TransformDirection(Vector3.Scale(this.thrustInputVelocity, this.maxThurstSpeeds));
+
+        this.thrustCurrentVelocity = VectorCalculations.GradualVector3Change(this.thrustCurrentVelocity, desiredVelocity, this.thrustAcceleration);
+
+        this.rgbd.velocity = this.thrustCurrentVelocity * Time.fixedDeltaTime;
     }
 
     void HandleTurn()
     {
         this.transform.Rotate(this.turnVelocity * Time.deltaTime);
     }
+
 }

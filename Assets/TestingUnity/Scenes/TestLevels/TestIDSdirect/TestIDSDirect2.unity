@@ -185,6 +185,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: thrustAcceleration.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: thrustAcceleration.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: thrustAcceleration.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: maxThurstSpeeds.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: maxThurstSpeeds.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314949800285675619, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
+      propertyPath: maxThurstSpeeds.z
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4932627450016625007, guid: 465b4c61a20c9994687b69c76b1d5978, type: 3}
       propertyPath: m_Name
       value: BasicShipIDSdirect
