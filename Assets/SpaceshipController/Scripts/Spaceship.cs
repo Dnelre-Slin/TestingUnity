@@ -14,10 +14,21 @@ public class Spaceship : MonoBehaviour
     private float pitchYawSensitivity = 10f;
     [SerializeField]
     private float rollSensitivity = 40f;
+    [SerializeField]
+    private float mainThrustSpeedAcceleration = 5f;
+    [SerializeField]
+    private float mainThrustMaxSpeed = 1000f;
+    [SerializeField]
+    private float mainThrustMinSpeed = -1000f;
 
     private Rigidbody rgbd;
     private Vector3 thrustInputVelocity = Vector3.zero;
     private Vector3 turnVelocity = Vector3.zero;
+    [SerializeField]
+    private bool landingModeActive = true;
+    [SerializeField]
+    private float desiredMainThrustSpeed = 0.0f;
+
 
     void Start()
     {
@@ -30,6 +41,7 @@ public class Spaceship : MonoBehaviour
     }
     void Update()
     {
+        HandleUpdateMainThrustSpeed();
         HandleTurn();
     }
 
@@ -57,6 +69,17 @@ public class Spaceship : MonoBehaviour
         this.turnVelocity.z = roll * this.rollSensitivity;
     }
 
+    public void ToggleLandingMode()
+    {
+        this.landingModeActive = !this.landingModeActive;
+        this.desiredMainThrustSpeed = 0.0f; // Set this to 0, when toggleing landing mode.
+    }
+
+    public void SetDesiredMainThrustSpeed(float desiredMainThrustSpeed)
+    {
+        this.desiredMainThrustSpeed = desiredMainThrustSpeed;
+    }
+
     public void OnFullStop()
     {
         this.thrustInputVelocity = Vector3.zero;
@@ -65,9 +88,15 @@ public class Spaceship : MonoBehaviour
 
     void HandleThrust()
     {
-        Vector3 desiredVelocity = this.transform.TransformDirection(Vector3.Scale(this.thrustInputVelocity, this.maxThurstSpeeds));
+        Vector3 thrustVelocity = Vector3.Scale(this.thrustInputVelocity, this.maxThurstSpeeds);
+        if (!this.landingModeActive)
+        {
+            thrustVelocity.z = this.desiredMainThrustSpeed;
+        }
+        Vector3 desiredVelocity = this.transform.TransformDirection(thrustVelocity);
 
         Vector3 currentVelocity = VectorCalculations.GradualVector3Change(this.rgbd.velocity / Time.fixedDeltaTime, desiredVelocity, this.thrustAcceleration);
+        Debug.Log(currentVelocity);
 
         this.rgbd.velocity = currentVelocity * Time.fixedDeltaTime;
     }
@@ -75,6 +104,14 @@ public class Spaceship : MonoBehaviour
     void HandleTurn()
     {
         this.transform.Rotate(this.turnVelocity * Time.deltaTime);
+    }
+
+    void HandleUpdateMainThrustSpeed()
+    {
+        if (!this.landingModeActive)
+        {
+            this.desiredMainThrustSpeed += this.mainThrustSpeedAcceleration * this.thrustInputVelocity.z;
+        }
     }
 
 }
