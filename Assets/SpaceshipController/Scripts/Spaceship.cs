@@ -96,7 +96,6 @@ public class Spaceship : MonoBehaviour
         Vector3 desiredVelocity = this.transform.TransformDirection(thrustVelocity);
 
         Vector3 currentVelocity = VectorCalculations.GradualVector3Change(this.rgbd.velocity / Time.fixedDeltaTime, desiredVelocity, this.thrustAcceleration);
-        Debug.Log(currentVelocity);
 
         this.rgbd.velocity = currentVelocity * Time.fixedDeltaTime;
     }

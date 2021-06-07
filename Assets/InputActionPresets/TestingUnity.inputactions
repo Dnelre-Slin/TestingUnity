@@ -848,6 +848,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ToggleLandingMode",
+                    "type": "Button",
+                    "id": "9e0e764d-cdc4-431e-b24c-5be14f3afccd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1002,6 +1010,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ExitVehicle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba197983-5f10-49c1-a0cb-73280b34e0c0",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleLandingMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/TestingUnity/InputActions/TestingUnity.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputActionPresets/TestingUnity.inputactions'
 
 using System;
 using System.Collections;
@@ -861,6 +861,14 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleLandingMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""9e0e764d-cdc4-431e-b24c-5be14f3afccd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1017,6 +1025,17 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                     ""action"": ""ExitVehicle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba197983-5f10-49c1-a0cb-73280b34e0c0"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLandingMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1111,6 +1130,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         m_Spaceship_TurnPitchYaw = m_Spaceship.FindAction("TurnPitchYaw", throwIfNotFound: true);
         m_Spaceship_TurnRoll = m_Spaceship.FindAction("TurnRoll", throwIfNotFound: true);
         m_Spaceship_ExitVehicle = m_Spaceship.FindAction("ExitVehicle", throwIfNotFound: true);
+        m_Spaceship_ToggleLandingMode = m_Spaceship.FindAction("ToggleLandingMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1336,6 +1356,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
     private readonly InputAction m_Spaceship_TurnPitchYaw;
     private readonly InputAction m_Spaceship_TurnRoll;
     private readonly InputAction m_Spaceship_ExitVehicle;
+    private readonly InputAction m_Spaceship_ToggleLandingMode;
     public struct SpaceshipActions
     {
         private @TestingUnity m_Wrapper;
@@ -1346,6 +1367,7 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         public InputAction @TurnPitchYaw => m_Wrapper.m_Spaceship_TurnPitchYaw;
         public InputAction @TurnRoll => m_Wrapper.m_Spaceship_TurnRoll;
         public InputAction @ExitVehicle => m_Wrapper.m_Spaceship_ExitVehicle;
+        public InputAction @ToggleLandingMode => m_Wrapper.m_Spaceship_ToggleLandingMode;
         public InputActionMap Get() { return m_Wrapper.m_Spaceship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1373,6 +1395,9 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                 @ExitVehicle.started -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnExitVehicle;
                 @ExitVehicle.performed -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnExitVehicle;
                 @ExitVehicle.canceled -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnExitVehicle;
+                @ToggleLandingMode.started -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
+                @ToggleLandingMode.performed -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
+                @ToggleLandingMode.canceled -= m_Wrapper.m_SpaceshipActionsCallbackInterface.OnToggleLandingMode;
             }
             m_Wrapper.m_SpaceshipActionsCallbackInterface = instance;
             if (instance != null)
@@ -1395,6 +1420,9 @@ public class @TestingUnity : IInputActionCollection, IDisposable
                 @ExitVehicle.started += instance.OnExitVehicle;
                 @ExitVehicle.performed += instance.OnExitVehicle;
                 @ExitVehicle.canceled += instance.OnExitVehicle;
+                @ToggleLandingMode.started += instance.OnToggleLandingMode;
+                @ToggleLandingMode.performed += instance.OnToggleLandingMode;
+                @ToggleLandingMode.canceled += instance.OnToggleLandingMode;
             }
         }
     }
@@ -1473,5 +1501,6 @@ public class @TestingUnity : IInputActionCollection, IDisposable
         void OnTurnPitchYaw(InputAction.CallbackContext context);
         void OnTurnRoll(InputAction.CallbackContext context);
         void OnExitVehicle(InputAction.CallbackContext context);
+        void OnToggleLandingMode(InputAction.CallbackContext context);
     }
 }
