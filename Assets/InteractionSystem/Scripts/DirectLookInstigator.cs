@@ -33,7 +33,7 @@ public class DirectLookInstigator : BaseInstigator
         int layerMask = Physics.DefaultRaycastLayers;
         if (Physics.Raycast(this.lookDirection.position, this.lookDirection.forward, out hit, this.interactDistance, layerMask))
         {
-            this.currentInteractable = hit.collider.transform.gameObject.GetComponent<BaseInteractable>();
+            this.SetCurrentInteractable(hit.collider.transform.gameObject.GetComponent<BaseInteractable>());
             if (this.currentInteractable != null)
             {
                 this.UpdateText(this.currentInteractable.GetDescription(), true);
@@ -41,7 +41,7 @@ public class DirectLookInstigator : BaseInstigator
             }
         }
         // If no interactable in sight:
-        this.currentInteractable = null;
+        this.SetCurrentInteractable(null);
         this.UpdateText("", false);
     }
 }

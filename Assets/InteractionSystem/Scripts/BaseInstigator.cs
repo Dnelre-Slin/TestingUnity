@@ -45,6 +45,11 @@ public abstract class BaseInstigator : MonoBehaviour
         }
     }
 
+    virtual protected void SetCurrentInteractable(BaseInteractable newInteractable)
+    {
+        this.currentInteractable = newInteractable;
+    }
+
     protected void UpdateText(string newText, bool enable)
     {
         if (interactText != null)
