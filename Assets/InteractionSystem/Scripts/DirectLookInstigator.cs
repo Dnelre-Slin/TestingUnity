@@ -8,9 +8,8 @@ public class DirectLookInstigator : BaseInstigator
     private float interactDistance = 2f;
     private Transform lookDirection;
 
-    new void Start()
+    protected void Start()
     {
-        base.Start();
         Camera playerCam = this.gameObject.GetComponentInChildren<Camera>();
         if (playerCam != null)
         {
@@ -27,7 +26,7 @@ public class DirectLookInstigator : BaseInstigator
         LookForInteractable();
     }
 
-    override protected void LookForInteractable()
+    protected void LookForInteractable()
     {
         RaycastHit hit;
         int layerMask = Physics.DefaultRaycastLayers;
@@ -36,12 +35,13 @@ public class DirectLookInstigator : BaseInstigator
             this.SetCurrentInteractable(hit.collider.transform.gameObject.GetComponent<BaseInteractable>());
             if (this.currentInteractable != null)
             {
-                this.UpdateText(this.currentInteractable.GetDescription(), true);
+                this.Refresh();
                 return;
             }
         }
         // If no interactable in sight:
+        this.Clear();
         this.SetCurrentInteractable(null);
-        this.UpdateText("", false);
     }
+
 }

@@ -7,12 +7,12 @@ public class HideInteractionTextOnUnpossess : MonoBehaviour
     [SerializeField]
     Controllable controllable = null;
     [SerializeField]
-    BaseInstigator instigator = null;
+    IInstigatorWithUiText instigator = null;
 
     void Awake()
     {
         this.controllable = this.GetComponent<Controllable>();
-        this.instigator = this.GetComponent<BaseInstigator>();
+        this.instigator = this.GetComponent<IInstigatorWithUiText>();
     }
 
     void OnEnable()
@@ -28,7 +28,7 @@ public class HideInteractionTextOnUnpossess : MonoBehaviour
     {
         if (this.instigator != null && this.controllable != null)
         {
-            this.instigator.showText = (newPossessedControllable == this.controllable); // Show text if the new possesed controllable, is the controllable in 'this'.
+            this.instigator.SetShowText(newPossessedControllable == this.controllable); // Show text if the new possesed controllable, is the controllable in 'this'.
         }
     }
 }

@@ -11,9 +11,6 @@ public abstract class BaseInteractable : MonoBehaviour
     [SerializeField]
     protected string description = "Interact";
 
-    [SerializeField]
-    protected Text interactableWorldText;
-
     virtual public string GetDescription()
     {
         return this.description;
@@ -27,8 +24,10 @@ public abstract class BaseInteractable : MonoBehaviour
         }
     }
 
-    virtual public Text GetText()
+    virtual public void Refresh()
     {
-        return this.interactableWorldText;
+    }
+    virtual public void Clear()
+    {
     }
 }
