@@ -577,13 +577,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableTriggerCube
       objectReference: {fileID: 0}
+    - target: {fileID: 7359910487146850396, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
+      propertyPath: m_Size.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359910487146850396, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
+      propertyPath: m_Size.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359910487146850396, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
+      propertyPath: m_Center.y
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7359910487146850397, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7359910487146850397, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7359910487146850397, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -623,11 +635,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7359910487146850397, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7359910487146850397, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff3baf9cb177ab448be83f719899a6df, type: 3}
